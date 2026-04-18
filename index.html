@@ -6,6 +6,21 @@
 <meta name="color-scheme" content="light dark">
 <meta name="description" content="Another Eden 글래스터(Grasta) 시스템 공략 — 기초부터 고급 최적화까지. 일본·영문·한국 공략을 종합한 비공식 통합 가이드.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="author" content="GGobugiTheSquirtle">
+<link rel="canonical" href="https://ggobugithesquirtle.github.io/glaster-guide/">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Another Eden · Guides">
+<meta property="og:title" content="글래스터 완전 공략 · Another Eden">
+<meta property="og:description" content="글래스터 시스템의 수학적 구조, 14개 Another Dungeon 획득처, 페페페/독독독/셔틀 세팅 원칙을 research paper 톤으로 정리한 비공식 통합 가이드.">
+<meta property="og:url" content="https://ggobugithesquirtle.github.io/glaster-guide/">
+<meta property="og:image" content="https://ggobugithesquirtle.github.io/glaster-guide/images/hokora-shrine.png">
+<meta property="og:locale" content="ko_KR">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="글래스터 완전 공략 · Another Eden">
+<meta name="twitter:description" content="글래스터 시스템 해설 · 14개 어나던 획득처 · 세팅 원칙 · 용어 통일표.">
+<meta name="twitter:image" content="https://ggobugithesquirtle.github.io/glaster-guide/images/hokora-shrine.png">
 <title>글래스터 완전 공략 · Another Eden</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -417,44 +432,101 @@ figcaption .src a { color: var(--text-dim); border-bottom: 1px dotted var(--bord
 }
 .fig-grid figure { margin: 0; }
 
-/* ---------- dungeon card ---------- */
-.dungeon {
-  margin-bottom: var(--sp-8);
-  padding-top: var(--sp-5);
+/* ---------- dungeon accordion ---------- */
+.dungeon-summary { margin: var(--sp-5) 0 var(--sp-8); }
+.dungeon-summary td a { border-bottom: none; font-weight: 500; }
+.dungeon-summary td a:hover { color: var(--accent-2); text-decoration: underline; }
+
+.accordion-list { display: grid; gap: 0; }
+.accordion {
   border-top: 1px solid var(--border);
+  scroll-margin-top: 32px;
 }
-.dungeon:first-of-type { border-top: none; padding-top: 0; }
-.dungeon-head {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-3);
-  margin-bottom: var(--sp-3);
-}
-.dungeon-head h3 {
-  margin: 0;
-  font-size: var(--fs-xl);
+.accordion:last-of-type { border-bottom: 1px solid var(--border); }
+
+.accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-3);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-serif);
+  font-size: var(--fs-lg);
   font-weight: 500;
+  color: var(--text);
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
 }
-.dungeon-head .phase {
+.accordion-trigger:hover { background: var(--accent-weak); color: var(--accent); }
+.accordion-trigger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  background: var(--accent-weak);
+}
+.accordion-trigger[aria-expanded="true"] { color: var(--accent); background: var(--accent-weak); }
+.accordion-trigger .title { flex: 0 1 auto; }
+.accordion-trigger .phase {
   font-family: var(--font-mono);
-  font-size: 0.74rem;
-  color: var(--accent);
+  font-size: 0.7rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 2px 8px;
+  border: 1px solid var(--border-str);
+  border-radius: 999px;
 }
-.dungeon-head .alias {
+.accordion-trigger .alias {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-dim);
 }
-.dungeon-meta {
+.accordion-trigger .chev {
+  margin-left: auto;
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  color: var(--text-dim);
+  transition: transform 0.25s var(--ease), color 0.15s;
+}
+.accordion-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); color: var(--accent); }
+
+.accordion-panel {
+  overflow: hidden;
+  padding: 0 var(--sp-3);
+  max-height: 0;
+  transition: max-height 0.35s var(--ease), padding 0.25s var(--ease);
+}
+.accordion-panel.is-open {
+  max-height: 3500px;
+  padding: var(--sp-2) var(--sp-3) var(--sp-5);
+  animation: panel-fade 0.3s var(--ease);
+}
+@keyframes panel-fade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.dungeon-body dl.meta {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 12px;
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--text-dim);
-  margin-bottom: var(--sp-3);
+  grid-template-columns: max-content 1fr;
+  gap: 6px var(--sp-4);
+  font-size: var(--fs-sm);
+  margin: 0 0 var(--sp-4);
+  font-variant-numeric: tabular-nums;
 }
-.dungeon-meta b { color: var(--text-2); font-weight: 500; margin-right: 2px; }
+.dungeon-body dl.meta dt {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 2px;
+}
+.dungeon-body dl.meta dd {
+  margin: 0;
+  color: var(--text-2);
+}
 
 /* ---------- footnote refs ---------- */
 .fn-ref {
@@ -532,6 +604,18 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
   color: var(--text-muted);
 }
 
+/* ---------- focus (a11y) ---------- */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ---------- utility: half-width figure ---------- */
+.figure-half { max-width: 520px; }
+
 /* ---------- mobile ---------- */
 @media (max-width: 900px) {
   .shell { grid-template-columns: 1fr; gap: 0; padding: 0 var(--sp-4); }
@@ -548,9 +632,39 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
   section > h2 { font-size: 1.6rem; }
   section > h3 { font-size: 1.2rem; }
   .theme-toggle { top: 10px; right: 10px; }
+  /* 아코디언 트리거 모바일 — 태그·알리아스는 트리거 아래로 쌓이게 */
+  .accordion-trigger { flex-wrap: wrap; font-size: var(--fs-md); }
+  .accordion-trigger .title { flex: 1 1 100%; order: 1; }
+  .accordion-trigger .phase { order: 2; }
+  .accordion-trigger .alias { order: 3; margin-right: auto; }
+  .accordion-trigger .chev { order: 4; margin-left: 0; }
 }
+
 @media (prefers-reduced-motion: reduce) {
-  * { transition-duration: 0.01ms !important; }
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- print stylesheet (논문 컨셉 부합) ---------- */
+@media print {
+  :root[data-theme] {
+    --bg: #ffffff; --bg-2: #f8f6ef; --bg-card: #ffffff;
+    --text: #000; --text-2: #222; --text-dim: #555;
+    --accent: #0d5557; --rule: #000; --border: #ccc;
+  }
+  .toc, .theme-toggle { display: none; }
+  .shell { grid-template-columns: 1fr; padding: 0; max-width: none; }
+  .content { padding: 0; max-width: 100%; }
+  body { font-size: 10.5pt; line-height: 1.5; }
+  a { color: #000; text-decoration: underline; border-bottom: none; }
+  a[href^="http"]::after { content: " [" attr(href) "]"; font-size: 0.75em; color: #666; }
+  figure, table, .callout, .accordion { break-inside: avoid; page-break-inside: avoid; }
+  .accordion-panel { max-height: none !important; padding: 0 !important; }
+  .accordion-trigger { cursor: default; }
+  .accordion-trigger .chev { display: none; }
+  section > h2 { page-break-before: always; }
+  section:first-of-type > h2, #abstract, .masthead { page-break-before: auto; }
+  footer.page-foot { page-break-before: always; }
 }
 </style>
 </head>
@@ -558,9 +672,9 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
 <body>
 
 <!-- Theme toggle (top right) -->
-<button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
-  <svg class="moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-  <svg class="sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+<button class="theme-toggle" id="themeToggle" aria-label="테마 전환" aria-pressed="false">
+  <svg class="moon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
 </button>
 
 <div class="shell">
@@ -590,6 +704,12 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
       <li><a href="#d-jad"  class="sub">지스몬데</a></li>
       <li><a href="#d-etc"  class="sub">기타 던전</a></li>
       <li><a href="#part4">IV 추천 세팅</a></li>
+      <li><a href="#sec-4-0" class="sub">결정 트리</a></li>
+      <li><a href="#sec-4-1" class="sub">단계별 로드맵</a></li>
+      <li><a href="#sec-4-2" class="sub">페페페 · 수치 계산</a></li>
+      <li><a href="#sec-4-3" class="sub">광석 조합</a></li>
+      <li><a href="#sec-4-4" class="sub">셔틀 빌드</a></li>
+      <li><a href="#sec-4-5" class="sub">뉴비 체크리스트</a></li>
       <li><a href="#part5">V &nbsp;VC · 진 글래</a></li>
       <li><a href="#part6">VI 고급 최적화</a></li>
       <li><a href="#glossary">부록 · 용어표</a></li>
@@ -767,179 +887,248 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
 <!-- ================================================================ -->
 <section id="part3">
   <h2><span class="num">PART III</span>던전별 획득처</h2>
-  <p>글래스터와 연성 광석은 대부분 <em>Another Dungeon(AD)</em>에서 얻는다. 던전별로 등장하는 글래스터 계열·광석·교환 NPC가 다르며, 추천 해금 순서는 메인스토리 진도를 따른다. 각 던전의 공식 지도는 일본 공략 사이트 <a href="https://altema.jp/anaden" target="_blank" rel="noopener">altema.jp</a>에서 가져왔으며, 한국어 자료는 arca.live 가이드에 의존한다.</p>
+  <p>글래스터와 연성 광석은 대부분 <em>Another Dungeon(AD)</em>에서 얻는다. 아래 요약 표에서 전체 던전을 한눈에 비교하고, 각 아코디언을 열어 세부 공략 이미지와 교환 포인트를 확인하라. 이미지는 일본 <a href="https://altema.jp/anaden" target="_blank" rel="noopener">altema.jp</a>와 한국 <a href="https://arca.live/b/anothereden" target="_blank" rel="noopener">arca.live 어나더 에덴 채널</a>에서 인용했다.</p>
+
+  <div class="tbl-wrap dungeon-summary">
+    <table>
+      <thead><tr><th style="width:16%">던전</th><th>파트</th><th>해금</th><th>핵심 획득</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#d-pgad" data-accord="d-pgad">현대 가를레아</a></td><td><span class="tag accent">PGAD · 2부 전편</span></td><td>제48장</td><td>하·중급 글래, 황금 무기 파편, 고양이 에마</td></tr>
+        <tr><td><a href="#d-agad" data-accord="d-agad">고대 가를레아</a></td><td><span class="tag accent">AGAD · 2부 중편</span></td><td>제66장</td><td>마물의 뼈, 선진적인 토우, 고대 방어구</td></tr>
+        <tr><td><a href="#d-fgad" data-accord="d-fgad">미래 가를레아</a></td><td><span class="tag accent">FGAD · 2부 후전(轉)</span></td><td>제74장</td><td>변질 광석, 영석 조각, 초밥 무기 4종</td></tr>
+        <tr><td><a href="#d-uad" data-accord="d-uad">명협계</a></td><td><span class="tag accent">UAD · 2부 후결(結)</span></td><td>제83장</td><td>표류물, 고양이 토우, 아공 무기 소재</td></tr>
+        <tr><td><a href="#d-oad" data-accord="d-oad">오메가폴리스</a></td><td><span class="tag accent">OAD · 3부 전편</span></td><td>제92장</td><td>버디 장비, 엘피스 무기, 황금 태엽</td></tr>
+        <tr><td><a href="#d-ead" data-accord="d-ead">엔트라나</a></td><td><span class="tag accent">EAD · 3부 중편</span></td><td>제104장</td><td>천년 나무 방어구, 연대기 무기, 堅多比</td></tr>
+        <tr><td><a href="#d-jad" data-accord="d-jad">지스몬데</a></td><td><span class="tag accent">3부 후편</span></td><td>제114장</td><td>화정 방어구, 신규 연성 광석, タネ箒</td></tr>
+        <tr><td><a href="#d-etc" data-accord="d-etc">기타 7종</a></td><td><span class="tag">심화 · 외전</span></td><td>이벤트별</td><td>명옥·방주·마수성·다마쿠·토토·시간의탑·실락</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="accordion-list" role="list">
 
   <!-- 현대 가를레아 -->
-  <div class="dungeon" id="d-pgad">
-    <div class="dungeon-head">
-      <h3>현대 가를레아 대륙</h3>
+  <article class="accordion" id="d-pgad">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-pgad">
+      <span class="title">현대 가를레아 대륙</span>
       <span class="phase">PGAD · 2부 전편</span>
-      <span class="alias">別名: 현가를</span>
+      <span class="alias">현가를</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-pgad" role="region" aria-labelledby="d-pgad">
+      <div class="dungeon-body">
+        <dl class="meta">
+          <dt>해금</dt><dd>메인 제48장 클리어 직후</dd>
+          <dt>주요 획득</dt><dd>현대 동방 무기·방어구, 황금 무기 파편, 조각·결정(공/생/지)</dd>
+          <dt>입장 비용</dt><dd>그린키 2개</dd>
+          <dt>주 교환 NPC</dt><dd>이자나 (고양이 에마 1·2 교환 완료), 나그샴 (잡동사니 교환)</dd>
+        </dl>
+        <p>글래스터 파밍의 출발점. 분기형 2지선다 구조에 6종류 에어리어 중 2개가 랜덤 출현한다. 하급·중급 공격/생명/지원 글래스터를 꾸준히 수급하고, 이자나 NPC와 고양이 에마를 교환해 상급을 얻는 루트가 표준.</p>
+        <figure class="figure-half">
+          <img loading="lazy" width="520" height="260" alt="현대 가를레아 대륙 AD 입구 썸네일"
+            src="https://img.altema.jp/anaden/uploads/2021/07/2021y07m27d_1326254565.jpg">
+          <figcaption>현대 가를레아 대륙 — 시대별 던전 선택 화면 <span class="src">· 출처: <a href="https://altema.jp/anaden/anothergalrea" target="_blank" rel="noopener">altema.jp/anaden/anothergalrea</a></span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="dungeon-meta">
-      <b>해금</b><span>메인 제48장 클리어 직후</span>
-      <b>주요 획득</b><span>현대 동방 무기/방어구, 황금 무기 파편, 조각·결정(공/생/지)</span>
-      <b>돈과 열쇠</b><span>그린키 2개</span>
-    </div>
-    <p>글래스터 파밍의 출발점. 분기형 2지선다 구조에 6종류 에어리어 중 2개가 랜덤 출현한다. 하급·중급 공격/생명/지원 글래스터를 꾸준히 수급하고, 이자나 NPC와 고양이 에마를 교환해 상급을 얻는 루트가 표준.</p>
-    <figure style="max-width: 520px;">
-      <img loading="lazy" alt="현대 가를레아 대륙 AD 입구 썸네일"
-        src="https://img.altema.jp/anaden/uploads/2021/07/2021y07m27d_1326254565.jpg">
-      <figcaption>현대 가를레아 대륙 — 시대별 던전 선택 화면 <span class="src">· 출처: <a href="https://altema.jp/anaden/anothergalrea" target="_blank" rel="noopener">altema.jp/anaden/anothergalrea</a></span></figcaption>
-    </figure>
-  </div>
+  </article>
 
   <!-- 고대 가를레아 -->
-  <div class="dungeon" id="d-agad">
-    <div class="dungeon-head">
-      <h3>고대 가를레아 대륙</h3>
+  <article class="accordion" id="d-agad">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-agad">
+      <span class="title">고대 가를레아 대륙</span>
       <span class="phase">AGAD · 2부 중편</span>
-      <span class="alias">別名: 고가를</span>
+      <span class="alias">고가를</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-agad" role="region" aria-labelledby="d-agad">
+      <div class="dungeon-body">
+        <dl class="meta">
+          <dt>해금</dt><dd>메인 제66장 클리어 후</dd>
+          <dt>주요 획득</dt><dd>마물의 뼈, 선진적인 토우, 고대 무기·방어구</dd>
+          <dt>추천 에어리어</dt><dd>토우의 비경 → 뼈 파밍 3곳</dd>
+          <dt>교환 NPC</dt><dd>가다로(세련된 토우 교환), 자미(마물의 뼈 교환)</dd>
+        </dl>
+        <p>도구(토우·뼈)를 모아 상급 글래스터 및 방어구를 교환한다. 도구는 던전을 포기해도 인벤토리에 남으므로, <em>원하는 에어리어만 도는 부분 파밍</em>이 가능하다.</p>
+        <figure class="figure-half">
+          <img loading="lazy" width="520" height="260" alt="고대 가를레아 대륙 AD 입구"
+            src="https://img.altema.jp/anaden/uploads/2019/08/2019y08m08d_2307268091.jpg">
+          <figcaption>고대 가를레아 대륙 썸네일 <span class="src">· 출처: <a href="https://altema.jp/anaden/anothergalreakodai" target="_blank" rel="noopener">altema.jp/anaden/anothergalreakodai</a></span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="dungeon-meta">
-      <b>해금</b><span>메인 제66장 클리어 후</span>
-      <b>주요 획득</b><span>마물의 뼈, 선진적인 토우, 고대 무기 · 방어구</span>
-      <b>추천 에어리어</b><span>토우의 비경 → 뼈 파밍 3곳</span>
-    </div>
-    <p>도구(토우·뼈)를 모아 가다로/자미 NPC와 상급 글래스터 및 방어구를 교환한다. 도구는 던전을 포기해도 인벤토리에 남으므로, <em>원하는 에어리어만 도는 부분 파밍</em>이 가능하다.</p>
-    <figure style="max-width: 520px;">
-      <img loading="lazy" alt="고대 가를레아 대륙 AD 입구"
-        src="https://img.altema.jp/anaden/uploads/2019/08/2019y08m08d_2307268091.jpg">
-      <figcaption>고대 가를레아 대륙 썸네일 <span class="src">· 출처: <a href="https://altema.jp/anaden/anothergalreakodai" target="_blank" rel="noopener">altema.jp/anaden/anothergalreakodai</a></span></figcaption>
-    </figure>
-  </div>
+  </article>
 
   <!-- 미래 가를레아 -->
-  <div class="dungeon" id="d-fgad">
-    <div class="dungeon-head">
-      <h3>미래 가를레아 대륙</h3>
-      <span class="phase">FGAD · 2부 후편 (전轉)</span>
-      <span class="alias">別名: 미가를</span>
+  <article class="accordion" id="d-fgad">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-fgad">
+      <span class="title">미래 가를레아 대륙</span>
+      <span class="phase">FGAD · 2부 후전(轉)</span>
+      <span class="alias">미가를</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-fgad" role="region" aria-labelledby="d-fgad">
+      <div class="dungeon-body">
+        <dl class="meta">
+          <dt>해금</dt><dd>메인 제74장 클리어 후</dd>
+          <dt>주요 획득</dt><dd>변질 광석(통화), 영석의 조각, 초밥 무기 4종</dd>
+          <dt>우선 교환</dt><dd>영석 조각 1개 → 嚮後 시리즈 방어구 (전속성 공격 ↑)</dd>
+          <dt>연성 소재</dt><dd>변질 광석 180개 → 글래스터 연성 소재 교환</dd>
+        </dl>
+        <p>4층 구조 — <em>거점 → 소재 채집 → 보물 → 보스</em>. 변질 광석을 모아 신에어리어 개방(13개), ID카드(13개), 글래스터 연성 소재 교환(180개)에 사용한다. AF 1~2턴 내 보스 격파 로테가 주회 효율의 정석.</p>
+        <figure class="figure-half">
+          <img loading="lazy" width="520" height="260" alt="미래 가를레아 대륙 AD 입구"
+            src="https://img.altema.jp/anaden/uploads/2020/07/2020y07m06d_114304392.jpg">
+          <figcaption>미래 가를레아 대륙 썸네일 <span class="src">· 출처: <a href="https://altema.jp/anaden/anothergalreamirai" target="_blank" rel="noopener">altema.jp/anaden/anothergalreamirai</a></span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="dungeon-meta">
-      <b>해금</b><span>메인 제74장 클리어 후</span>
-      <b>주요 획득</b><span>변질 광석(통화), 영석의 조각, 초밥 무기 4종</span>
-      <b>우선 교환</b><span>영석 조각 1개 → 嚮後 시리즈 방어구 (전속성 공격 ↑)</span>
-    </div>
-    <p>4층 구조 — <em>거점 → 소재 채집 → 보물 → 보스</em>. 변질 광석을 모아 신에어리어 개방(13개), ID카드(13개), 글래스터 연성 소재 교환(180개)에 사용한다. AF 1~2턴 내 보스 격파 로테가 주회 효율의 정석.</p>
-    <figure style="max-width: 520px;">
-      <img loading="lazy" alt="미래 가를레아 대륙 AD 입구"
-        src="https://img.altema.jp/anaden/uploads/2020/07/2020y07m06d_114304392.jpg">
-      <figcaption>미래 가를레아 대륙 썸네일 <span class="src">· 출처: <a href="https://altema.jp/anaden/anothergalreamirai" target="_blank" rel="noopener">altema.jp/anaden/anothergalreamirai</a></span></figcaption>
-    </figure>
-  </div>
+  </article>
 
   <!-- 명협계 -->
-  <div class="dungeon" id="d-uad">
-    <div class="dungeon-head">
-      <h3>명협계</h3>
-      <span class="phase">UAD · 2부 후편 (결結)</span>
-      <span class="alias">別名: 명협 / 冥峡界</span>
+  <article class="accordion" id="d-uad">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-uad">
+      <span class="title">명협계</span>
+      <span class="phase">UAD · 2부 후결(結)</span>
+      <span class="alias">명협 / 冥峡界</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-uad" role="region" aria-labelledby="d-uad">
+      <div class="dungeon-body">
+        <dl class="meta">
+          <dt>해금</dt><dd>메인 제83장 클리어 후</dd>
+          <dt>주요 획득</dt><dd>표류물, 고양이 토우, 아공 무기 8종 소재</dd>
+          <dt>HARD 교환</dt><dd>숙성 버섯 · 기도의 손거울 · 황천의 짧은 낫</dd>
+          <dt>경로</dt><dd>귀화 동굴 · 차원 대성당 · 황천의 방주 (3루트)</dd>
+        </dl>
+        <p>2부 후결의 정점이자 글래스터 심화의 시작. 던전 내 세 경로에 각각 보스가 존재하며, 보상·교환 NPC·퀘스트가 복합적으로 얽혀있다. 아래는 일본 공략 지도의 한자 주석(열쇠/기도의 손거울 사용처)과 한국어 실게임 스크린샷이다.</p>
+        <div class="fig-grid">
+          <figure>
+            <img loading="lazy" alt="명협계 차원 대성당 — 키 아이템 사용처 화살표 가이드"
+              src="https://img.altema.jp/anaden/kakudai/jigendaiseidoukagi.jpg">
+            <figcaption>차원 대성당 · 鍵(열쇠) / 祈りの手鏡(기도의 손거울) 사용처 <span class="src">· 출처: <a href="https://altema.jp/anaden/meikyoukai" target="_blank" rel="noopener">altema.jp/anaden/meikyoukai</a></span></figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" alt="명협계 귀화동 — 키아이템 사용처"
+              src="https://img.altema.jp/anaden/kakudai/onibidoukagi.jpg">
+            <figcaption>귀화동 (鬼火洞 Demon's Den) · 열쇠 / 숙성 버섯 사용처 <span class="src">· 출처: <a href="https://altema.jp/anaden/meikyoukai" target="_blank" rel="noopener">altema.jp/anaden/meikyoukai</a></span></figcaption>
+          </figure>
+        </div>
+        <figure>
+          <img loading="lazy" alt="명협계 실게임 — 표지판을 참고하여 갈림길에서 진행경로 선택 (한국어 주석)"
+            src="images/underworld-branch.png">
+          <figcaption>갈림길 표지판 안내 (한국어) <span class="src">· 출처: <a href="https://arca.live/b/anothereden/78758676" target="_blank" rel="noopener">arca.live · 가를3종 & 명협계 어나던 가이드</a></span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="dungeon-meta">
-      <b>해금</b><span>메인 제83장 클리어 후</span>
-      <b>주요 획득</b><span>표류물, 고양이 토우, 아공 무기 8종 소재</span>
-      <b>HARD 교환</b><span>숙성 버섯 · 기도의 손거울 · 황천의 짧은 낫</span>
-    </div>
-    <p>2부 후결의 정점이자 글래스터 심화의 시작. 던전 내 세 경로에 각각 보스가 존재하며, 보상 · 교환 NPC · 퀘스트가 복합적으로 얽혀있다. 아래는 altema의 던전 지도에 표기된 한자 주석(열쇠/기도의 손거울 사용처)의 대표 예시.</p>
-    <div class="fig-grid">
-      <figure>
-        <img loading="lazy" alt="명협계 차원 대성당 — 키 아이템 사용처 화살표 가이드"
-          src="https://img.altema.jp/anaden/kakudai/jigendaiseidoukagi.jpg">
-        <figcaption>차원 대성당 · 鍵(열쇠) / 祈りの手鏡(기도의 손거울) 사용처 <span class="src">· 출처: <a href="https://altema.jp/anaden/meikyoukai" target="_blank" rel="noopener">altema.jp/anaden/meikyoukai</a></span></figcaption>
-      </figure>
-      <figure>
-        <img loading="lazy" alt="명협계 귀화동 — 키아이템 사용처"
-          src="https://img.altema.jp/anaden/kakudai/onibidoukagi.jpg">
-        <figcaption>귀화동 (鬼火洞 Demon's Den) · 열쇠 / 숙성 버섯 사용처 <span class="src">· 출처: <a href="https://altema.jp/anaden/meikyoukai" target="_blank" rel="noopener">altema.jp/anaden/meikyoukai</a></span></figcaption>
-      </figure>
-    </div>
-    <p>실전 한국어 가이드는 아래 이미지를 참고하라. 표지판 방향으로 갈림길에서 진행 경로를 결정한다.</p>
-    <figure>
-      <img loading="lazy" alt="명협계 실게임 — 표지판을 참고하여 갈림길에서 진행경로 선택 (한국어 주석)"
-        src="images/underworld-branch.png">
-      <figcaption>갈림길 표지판 안내 (한국어) <span class="src">· 출처: <a href="https://arca.live/b/anothereden/78758676" target="_blank" rel="noopener">arca.live · 가를3종 & 명협계 어나던 가이드</a></span></figcaption>
-    </figure>
-  </div>
+  </article>
 
   <!-- 오메가폴리스 -->
-  <div class="dungeon" id="d-oad">
-    <div class="dungeon-head">
-      <h3>오메가폴리스</h3>
+  <article class="accordion" id="d-oad">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-oad">
+      <span class="title">오메가폴리스</span>
       <span class="phase">OAD · 3부 전편</span>
-      <span class="alias">別名: 오메가</span>
+      <span class="alias">오메가</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-oad" role="region" aria-labelledby="d-oad">
+      <div class="dungeon-body">
+        <dl class="meta">
+          <dt>해금</dt><dd>메인 제92장 클리어 후</dd>
+          <dt>주요 획득</dt><dd>버디 장비, 엘피스 무기, 플라즈마·연랑 방어구</dd>
+          <dt>핵심 통화</dt><dd>녹슨 부품(13개 → 금망치), 황금 태엽(저확률)</dd>
+          <dt>진행</dt><dd>월철의 숲 → 생명공장 → 하층 → 중층 → 보스</dd>
+        </dl>
+        <p>월철의 숲에서 녹슨 부품을 모아 생명공장을 해금하고, 중층 진입에는 헌터 라이선스가 필요하다. 흔들림의 조각 5개로 페이즈 시프트를 전개하면 녹슨 부품 획득률이 1.3배 증가.</p>
+        <figure>
+          <img loading="lazy" alt="오메가폴리스 월철의 숲 — 맵/키 사용처"
+            src="https://img.altema.jp/anaden/kakudai/tukitetugareki.jpg">
+          <figcaption>오메가폴리스 · 월철의 숲 맵 <span class="src">· 출처: <a href="https://altema.jp/anaden/anotheromegapolis" target="_blank" rel="noopener">altema.jp/anaden/anotheromegapolis</a></span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="dungeon-meta">
-      <b>해금</b><span>메인 제92장 클리어 후</span>
-      <b>주요 획득</b><span>버디 장비, 엘피스 무기 / 플라즈마·연랑 방어구</span>
-      <b>핵심 통화</b><span>녹슨 부품 · 황금 태엽</span>
-    </div>
-    <figure>
-      <img loading="lazy" alt="오메가폴리스 월철의 숲 — 맵/키 사용처"
-        src="https://img.altema.jp/anaden/kakudai/tukitetugareki.jpg">
-      <figcaption>오메가폴리스 · 월철의 숲 맵 <span class="src">· 출처: <a href="https://altema.jp/anaden/anotheromegapolis" target="_blank" rel="noopener">altema.jp/anaden/anotheromegapolis</a></span></figcaption>
-    </figure>
-  </div>
+  </article>
 
   <!-- 엔트라나 -->
-  <div class="dungeon" id="d-ead">
-    <div class="dungeon-head">
-      <h3>엔트라나</h3>
+  <article class="accordion" id="d-ead">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-ead">
+      <span class="title">엔트라나</span>
       <span class="phase">EAD · 3부 중편</span>
-      <span class="alias">別名: 엔트라</span>
+      <span class="alias">엔트라</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-ead" role="region" aria-labelledby="d-ead">
+      <div class="dungeon-body">
+        <dl class="meta">
+          <dt>해금</dt><dd>메인 제104장 클리어 후</dd>
+          <dt>주요 획득</dt><dd>천년 나무 방어구, 연대기 무기 소재, 새 글래스터</dd>
+          <dt>핵심 통화</dt><dd>堅多比 (카타마타)</dd>
+          <dt>보스 루트</dt><dd>허몽 에코 · 가지람 · 제국 특수부대 (각 속성 약점 다름)</dd>
+        </dl>
+        <figure>
+          <img loading="lazy" alt="엔트라나 던전 구조 차트"
+            src="https://img.altema.jp/anaden/kakudai/entoranachart1.jpg">
+          <figcaption>엔트라나 · 진행 구조 <span class="src">· 출처: <a href="https://altema.jp/anaden/enntorana" target="_blank" rel="noopener">altema.jp/anaden/enntorana</a></span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="dungeon-meta">
-      <b>해금</b><span>메인 제104장 클리어 후</span>
-      <b>주요 획득</b><span>천년 나무 방어구, 연대기 무기 소재, 새 글래스터</span>
-      <b>핵심 통화</b><span>堅多比 (카타마타)</span>
-    </div>
-    <figure>
-      <img loading="lazy" alt="엔트라나 던전 구조 차트"
-        src="https://img.altema.jp/anaden/kakudai/entoranachart1.jpg">
-      <figcaption>엔트라나 · 진행 구조 <span class="src">· 출처: <a href="https://altema.jp/anaden/enntorana" target="_blank" rel="noopener">altema.jp/anaden/enntorana</a></span></figcaption>
-    </figure>
-  </div>
+  </article>
 
   <!-- 지스몬데 -->
-  <div class="dungeon" id="d-jad">
-    <div class="dungeon-head">
-      <h3>지스몬데</h3>
+  <article class="accordion" id="d-jad">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-jad">
+      <span class="title">지스몬데</span>
       <span class="phase">3부 후편</span>
+      <span class="alias">—</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-jad" role="region" aria-labelledby="d-jad">
+      <div class="dungeon-body">
+        <dl class="meta">
+          <dt>해금</dt><dd>메인 제114장 클리어 후</dd>
+          <dt>주요 획득</dt><dd>화정 방어구 소재, 새 연성 광석, 마녀 모자·커다란 결정</dd>
+          <dt>핵심 통화</dt><dd>タネ箒 (타네호우키)</dd>
+          <dt>에어리어</dt><dd>슬래터구 · 알바구 — 유리 영묘, 환상 유원지, 검의 관, 해저 횡단 열차</dd>
+        </dl>
+        <figure>
+          <img loading="lazy" alt="지스몬데 슬래터구 맵"
+            src="https://img.altema.jp/anaden/kakudai/jismonde1.jpg">
+          <figcaption>지스몬데 · 슬래터구 영역 맵 <span class="src">· 출처: <a href="https://altema.jp/anaden/anotherjisumonde" target="_blank" rel="noopener">altema.jp/anaden/anotherjisumonde</a></span></figcaption>
+        </figure>
+      </div>
     </div>
-    <div class="dungeon-meta">
-      <b>해금</b><span>메인 제114장 클리어 후</span>
-      <b>주요 획득</b><span>화정 방어구 소재, 새 연성 광석, 마녀 모자 · 커다란 결정</span>
-      <b>핵심 통화</b><span>タネ箒 (타네호우키)</span>
-    </div>
-    <figure>
-      <img loading="lazy" alt="지스몬데 슬래터구 맵"
-        src="https://img.altema.jp/anaden/kakudai/jismonde1.jpg">
-      <figcaption>지스몬데 · 슬래터구 영역 맵 <span class="src">· 출처: <a href="https://altema.jp/anaden/anotherjisumonde" target="_blank" rel="noopener">altema.jp/anaden/anotherjisumonde</a></span></figcaption>
-    </figure>
-  </div>
+  </article>
 
   <!-- 기타 -->
-  <div class="dungeon" id="d-etc">
-    <div class="dungeon-head">
-      <h3>기타 던전</h3>
-      <span class="alias">심화 / 콜라보 / 외전</span>
+  <article class="accordion" id="d-etc">
+    <button class="accordion-trigger" aria-expanded="false" aria-controls="p-etc">
+      <span class="title">기타 7종 던전</span>
+      <span class="phase">심화 / 콜라보 / 외전</span>
+      <span class="alias">명옥·방주·마수성·다마쿠·토토·시탑·실락</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="accordion-panel" id="p-etc" role="region" aria-labelledby="d-etc">
+      <div class="dungeon-body">
+        <p>메인스토리 외의 던전에서도 고유 글래스터·방어구가 등장한다. 각 던전의 주요 보상과 특이점을 요약한다.</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>던전</th><th>시점</th><th>주요 획득</th><th>공략</th></tr></thead>
+            <tbody>
+              <tr><th>명옥</th><td>외경 이벤트 완료</td><td>백양화혼석 · 천진신 츠쿠요미 전용 글래</td><td><a href="https://altema.jp/anaden/meigokuanother" target="_blank" rel="noopener">altema ↗</a></td></tr>
+              <tr><th>차원전함 아크</th><td>FF9 협업 중</td><td>FF9 캐릭 천명 상승, 보석 보상</td><td><a href="https://altema.jp/anaden/anotherark" target="_blank" rel="noopener">altema ↗</a></td></tr>
+              <tr><th>마수성</th><td>제31장 후</td><td>절망의 검 · 단죄 · 요몽 방어구</td><td><a href="https://altema.jp/anaden/anothermajujo" target="_blank" rel="noopener">altema ↗</a></td></tr>
+              <tr><th>사간 다마쿠</th><td>제31장 후</td><td>제비로·뮨파 등 캐릭 메모리</td><td><a href="https://altema.jp/anaden/damaku" target="_blank" rel="noopener">altema ↗</a></td></tr>
+              <tr><th>토토 드림랜드</th><td>외전 토토</td><td>뱃지 · FEAR 사이킥 이드</td><td><a href="https://altema.jp/anaden/anothertoto" target="_blank" rel="noopener">altema ↗</a></td></tr>
+              <tr><th>시간의 탑</th><td>제11장 후</td><td>뱃지 · 메모리 북 (초반 리소스)</td><td><a href="https://altema.jp/anaden/another-tokinotou-2673" target="_blank" rel="noopener">altema ↗</a></td></tr>
+              <tr><th>실락의 도시</th><td>외경 실락 이벤트</td><td>활성 마소 누적 17,500 · 루나 무기 강화 소재</td><td><a href="https://altema.jp/anaden/siturakunomiyako" target="_blank" rel="noopener">altema ↗</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    <p>메인스토리 외의 던전에서도 고유 글래스터·방어구가 등장한다. 각 던전의 주요 보상과 특이점을 간략히 정리한다.</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>던전</th><th>시점</th><th>주요 획득</th><th>링크</th></tr></thead>
-        <tbody>
-          <tr><th>명옥</th><td>외경 이벤트 완료</td><td>백양화혼석 · 천진신 츠쿠요미 전용 글래</td><td><a href="https://altema.jp/anaden/meigokuanother" target="_blank" rel="noopener">altema ↗</a></td></tr>
-          <tr><th>차원전함 아크</th><td>FF9 협업 중</td><td>FF9 캐릭 천명 상승, 보석 보상</td><td><a href="https://altema.jp/anaden/anotherark" target="_blank" rel="noopener">altema ↗</a></td></tr>
-          <tr><th>마수성</th><td>제31장 후</td><td>절망의 검 · 단죄 · 요몽 방어구</td><td><a href="https://altema.jp/anaden/anothermajujo" target="_blank" rel="noopener">altema ↗</a></td></tr>
-          <tr><th>사간 다마쿠</th><td>제31장 후</td><td>제비로·뮨파 등 캐릭 메모리</td><td><a href="https://altema.jp/anaden/damaku" target="_blank" rel="noopener">altema ↗</a></td></tr>
-          <tr><th>토토 드림랜드</th><td>외전 토토</td><td>뱃지 · FEAR 사이킥 이드</td><td><a href="https://altema.jp/anaden/anothertoto" target="_blank" rel="noopener">altema ↗</a></td></tr>
-          <tr><th>시간의 탑</th><td>제11장 후</td><td>뱃지 · 메모리 북 (초반 리소스)</td><td><a href="https://altema.jp/anaden/another-tokinotou-2673" target="_blank" rel="noopener">altema ↗</a></td></tr>
-          <tr><th>실락의 도시</th><td>외경 실락 이벤트</td><td>활성 마소 누적 17,500 · 루나 무기 강화 소재</td><td><a href="https://altema.jp/anaden/siturakunomiyako" target="_blank" rel="noopener">altema ↗</a></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  </article>
+
+  </div><!-- /.accordion-list -->
 </section>
 
 <!-- ================================================================ -->
@@ -947,23 +1136,140 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
 <!-- ================================================================ -->
 <section id="part4">
   <h2><span class="num">PART IV</span>추천 세팅 원칙</h2>
-  <p>대부분의 캐릭터에게 통용되는 <em>범용 원칙</em>은 네 가지로 귀결된다 — <strong>곱셈 중첩</strong>, <strong>속성 가산</strong>, <strong>버티기 안전장치</strong>, <strong>P연성 셔틀</strong>.</p>
+  <p>대부분의 캐릭터에게 통용되는 <em>범용 빌드 원칙</em>은 네 가지로 귀결된다 — <strong>곱셈 중첩</strong>, <strong>속성 가산</strong>, <strong>광석 조합</strong>, <strong>P연성 셔틀</strong>. 이 장은 단계별 우선순위와 실제 수치 계산까지 포함한다.</p>
 
-  <h3>1. 곱셈 빌드 — 페페페 / 독독독</h3>
-  <p>같은 효과 상급 글래스터 3개를 겹치면 <em>곱셈</em>으로 쌓인다. 페인 유발 캐릭터의 경우 <span class="term">통증의 힘</span> × 3 = 1.3³ ≈ 2.197배. 독 유발 캐릭은 <span class="term">유독의 힘</span> × 3로 동일. 상태이상 의존 딜러가 사실상 이 빌드로 수렴한다.</p>
+  <h3 id="sec-4-0">0. 빌드 결정 트리</h3>
+  <p>내 캐릭터가 어떤 빌드로 수렴해야 하는지 판단하는 가장 빠른 길:</p>
+  <div class="callout note">
+    <h4>Decision Tree — 내 캐릭에 맞는 빌드</h4>
+    <p>
+      <strong>① 상태이상을 거는가?</strong><br>
+      → <em>페인</em> 걸 수 있음 → <strong>페페페</strong> (통증의 힘 ×3)<br>
+      → <em>독</em> 걸 수 있음 → <strong>독독독</strong> (유독의 힘 ×3)<br>
+      → <strong>둘 다 안 걸림</strong> → ②
+    </p>
+    <p>
+      <strong>② 단일 속성 딜러인가?</strong><br>
+      → 네 → <strong>중중중</strong> (해당 속성 중급 ×3) + 상급 1종<br>
+      → 다속성/밸런스 → <strong>범용 중급 2 + 방어성 1</strong>
+    </p>
+    <p>
+      <strong>③ 메인 딜러가 아닌가(닦이/버퍼)?</strong><br>
+      → <strong>P연성 글래 3~4개 전용 셔틀</strong>로 전환 고려
+    </p>
+  </div>
 
-  <h3>2. 속성 가산 빌드 — 중중중</h3>
-  <p>상태이상을 안 쓰는 일반 딜러는 속성 중급 글래스터 3개 덧셈(+60%)이 무난한 선택. 곱셈보다 약하지만 상태이상 조건이 없어 <em>안정성</em>이 높다.</p>
+  <h3 id="sec-4-1">1. 단계별 빌드 로드맵</h3>
+  <p>게임 진행 단계별로 도달 가능한 빌드와, 각 단계에서 <em>다음 단계로 넘어가는 전환 시점</em>을 표로 정리.</p>
 
-  <h3>3. 연성 광석 조합 — 시련+저격, 장미+배수</h3>
-  <p>광석은 동일 효과를 중첩할 수 없지만 서로 다른 효과는 대부분 덧셈 or 곱셈으로 공존한다. 약점 저격 빌드는 <span class="term">시련</span> + <span class="term">포박</span> 조합, 풀 HP 유지 가능한 빌드는 <span class="term">장미</span> + <span class="term">배수</span>를 권장.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>진도</th><th>핵심 빌드</th><th>기대 배율</th><th>전환 신호</th></tr></thead>
+      <tbody>
+        <tr>
+          <th>🌱 뉴비</th>
+          <td>48–70장</td>
+          <td><strong>중중중</strong> (속성 중급 ×3) + 생명 1</td>
+          <td><code>+60% · 가산</code></td>
+          <td>첫 상급 글래 각성 시 → 2단계</td>
+        </tr>
+        <tr>
+          <th>🌿 중반</th>
+          <td>70–90장</td>
+          <td><strong>페페페 / 독독독</strong> 중 1종 + 광석 1개</td>
+          <td><code>×2.197 · 곱셈</code></td>
+          <td>P연성 광석 3개 이상 확보 시 → 3단계</td>
+        </tr>
+        <tr>
+          <th>🌳 엔드</th>
+          <td>92장+</td>
+          <td>전열 = <strong>페페페+자창+저격</strong>, 후열 = <strong>셔틀(P연성)</strong></td>
+          <td><code>×3.5+ · 곱셈+조건</code></td>
+          <td>천명 200 달성 시 → 4단계</td>
+        </tr>
+        <tr>
+          <th>🌟 4슬롯</th>
+          <td>천명 200</td>
+          <td>4번 슬롯에 <strong>광성 / 포박 / 시련</strong> 중 캐릭 맞춤</td>
+          <td><code>+루나 2턴 · 약점 ×50%</code></td>
+          <td>극글래 수급 시 → 마이크로 최적화</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <h3>4. 셔틀 빌드 — 후열 P연성 3~4개</h3>
-  <p><strong>[P] 글래스터</strong>는 파티 전체에 효과를 퍼뜨리므로, 메인 딜러가 아닌 후열 캐릭에게 P연성 글래 3~4개를 장착해두면 전열의 순딜 자원을 내장 강화 없이 늘릴 수 있다. 엔드게임 편성의 필수 구성.</p>
+  <h3 id="sec-4-2">2. 곱셈 빌드의 실제 수치 — 페페페 / 독독독</h3>
+  <p>같은 효과 상급 글래스터 3개를 겹치면 <em>곱셈</em>으로 누적된다. 이 곱셈 구조가 페인/독 빌드를 "극단적으로 강한 선택"으로 만드는 핵심 이유.</p>
 
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>장착 수</th><th>통증의 힘 (페인 시)</th><th>수식</th><th>누적 배율</th></tr></thead>
+      <tbody>
+        <tr><td>0개</td><td>—</td><td><code>1.00</code></td><td>×1.00</td></tr>
+        <tr><td>1개</td><td>+30%</td><td><code>1.30</code></td><td>×1.30</td></tr>
+        <tr><td>2개</td><td>+30% × +30%</td><td><code>1.30²</code></td><td>×1.69</td></tr>
+        <tr><td><strong>3개 (페페페)</strong></td><td>+30% × +30% × +30%</td><td><code>1.30³</code></td><td><strong>×2.197</strong></td></tr>
+        <tr><td>상급 자창 추가</td><td>페인 +35% 치환</td><td><code>1.30² × 1.35</code></td><td>×2.282</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>독 빌드도 동일 구조. <span class="term">유독의 힘</span> 3개 = 독 상태일 때 <code>×2.197배</code>. 페페페·독독독이 의존하는 전제는 <strong>상태이상 100% 명중률</strong>이므로, 닦이/버퍼가 먼저 페인·독을 확정적으로 걸어줘야 한다.</p>
+
+  <div class="callout warn">
+    <h4>WARN — 곱셈이 무너지는 경우</h4>
+    <p>상태이상 내성 몬스터 또는 레지스턴스 +50% 보스에서는 페페페가 발동 않고 실효 데미지가 <em>기본값 ×1.00</em>으로 떨어진다. 이런 보스는 중중중이 오히려 안정적 — 빌드를 고정하지 말고 콘텐츠별 스왑하는 습관을 들여야 한다.</p>
+  </div>
+
+  <h3 id="sec-4-3">3. 광석 조합의 수학 — 가산/곱셈/조건부</h3>
+  <p>광석은 동일 효과는 중첩할 수 없으나 서로 다른 효과는 각자의 조건에 따라 <em>곱셈 또는 가산</em>으로 중첩된다. 주요 조합과 그 효과식:</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>조합</th><th>조건</th><th>효과</th><th>추천 대상</th></tr></thead>
+      <tbody>
+        <tr><td><strong>시련 + 포박</strong></td><td>약점 타격</td><td>+10% + +50% = <code>+60% 가산</code></td><td>약점 저격 빌더</td></tr>
+        <tr><td><strong>장미 + 배수</strong></td><td>적 2체+ · HP 풀</td><td><code>+15% × 배수%</code> 곱셈</td><td>잡몹 쓸이 AoE</td></tr>
+        <tr><td><strong>저격 + 버티기</strong></td><td>AF 외 · HP 1 안전망</td><td><code>+50% 안정성↑</code></td><td>보스 러쉬</td></tr>
+        <tr><td><strong>시련 + 저격 + 포박</strong></td><td>AF 외 약점 타격</td><td><code>+10% + 50% + 50%</code></td><td>엔드게임 원턴덱</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 id="sec-4-4">4. 셔틀 빌드 (P연성) 상세</h3>
+  <p><strong>[P] 글래스터</strong>는 파티 전체에 효과를 퍼뜨리는 특수 변환 상태. 메인 딜러가 아닌 <em>후열 캐릭</em>에게 P연성 글래 3~4개를 장착하면, 전열 딜러의 글래슬롯을 건드리지 않고도 파티 전체 딜을 증폭시킬 수 있다.</p>
+
+  <h4>셔틀 구성 예시</h4>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>셔틀 슬롯</th><th>글래스터</th><th>전달 효과</th></tr></thead>
+      <tbody>
+        <tr><th>셔틀 슬롯 1</th><td>P 통증의 힘</td><td>파티 전체 페인 시 ×1.3</td></tr>
+        <tr><th>셔틀 슬롯 2</th><td>P 시련</td><td>파티 전체 약점 +10%</td></tr>
+        <tr><th>셔틀 슬롯 3</th><td>P 저격</td><td>파티 전체 AF 외 +50%</td></tr>
+        <tr><th>셔틀 슬롯 4</th><td>P 광성 (천명 200 이후)</td><td>루나틱 2턴 연장</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>셔틀 후보로 적합한 캐릭은 전투 기여도가 낮거나 영입 순위가 높은 캐릭. 주로 <em>닦이와 겸직</em>하지 않고 <em>전담 셔틀</em>로 돌리는 게 정석이다.</p>
+
+  <h3 id="sec-4-5">5. 신규 플레이어 체크리스트</h3>
   <div class="callout tip">
-    <h4>Tip — 우선순위</h4>
-    <p>뉴비라면 순서대로: <strong>중중중(일반)</strong> → 페인·독 유발 캐릭 확보 후 <strong>페페페 / 독독독</strong> → P연성 광석 수급되면 <strong>셔틀</strong>. 4번 슬롯은 천명 200이 필수라 장기 목표.</p>
+    <h4>Tip — 우선순위 실행 순서</h4>
+    <ol>
+      <li><strong>경옥 아끼기</strong> — 상급 각성은 신중히. 페인 걸리는 캐릭이 없으면 페페페용 상급 글래를 지금 만들지 말 것.</li>
+      <li><strong>중중중으로 시작</strong> — 해당 속성 중급 글래 3개 모을 때까지 일단 AD 돌리기.</li>
+      <li><strong>첫 페인 캐릭 확보</strong> — 페인 걸 수 있는 캐릭 뽑거나 성능 리스트 확인 후 페페페 착수.</li>
+      <li><strong>P연성 광석 수급</strong> — 미래 가를레아 · 오메가 · 엔트라 파밍. 변질 광석 180개로 연성 소재.</li>
+      <li><strong>셔틀 편성</strong> — 후열에 P글래 3개 장착 전담 캐릭 1명 고정.</li>
+      <li><strong>천명 200 도전</strong> — 4번 슬롯은 장기 목표. 급하게 달성하려 하지 말 것.</li>
+    </ol>
+  </div>
+
+  <div class="callout note">
+    <h4>NOTE — 피해야 할 실수</h4>
+    <p>① 페인 안 걸리는 캐릭에게 페페페 장착(배율 ×1.0으로 낭비) · ② 같은 광석 2개로 "이중 적용" 시도(불가능) · ③ 글래 각성을 모든 캐릭에게 평등 분배(경옥 낭비) · ④ 셔틀에 상급 글래 장착(P연성이 아니면 의미 없음)</p>
   </div>
 </section>
 
@@ -1098,19 +1404,31 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
 <!-- ================================================================ -->
 <script>
 (function(){
-  // Theme toggle
+  // ---- safe localStorage (private mode / sandbox 대응) ----
+  const LS = {
+    get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+    set(k,v) { try { localStorage.setItem(k,v); } catch {} },
+  };
+
+  // ---- Theme toggle ----
   const root = document.documentElement;
-  const btn = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('glaster-theme');
+  const themeBtn = document.getElementById('themeToggle');
+  const saved = LS.get('glaster-theme');
   if (saved === 'dark' || saved === 'light') root.dataset.theme = saved;
   else if (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) root.dataset.theme = 'dark';
-  btn.addEventListener('click', () => {
+  function syncThemeAria() {
+    themeBtn.setAttribute('aria-pressed', root.dataset.theme === 'dark' ? 'true' : 'false');
+  }
+  syncThemeAria();
+  themeBtn.addEventListener('click', () => {
     const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next;
-    localStorage.setItem('glaster-theme', next);
+    LS.set('glaster-theme', next);
+    syncThemeAria();
   });
 
-  // Active TOC highlight via IntersectionObserver
+  // ---- TOC active highlight (IntersectionObserver) ----
+  // 개선: entries 여러개 교차 시 가장 상단 섹션을 active로 (짧은 섹션도 포착)
   const tocLinks = document.querySelectorAll('.toc-list a');
   const sections = [];
   tocLinks.forEach(a => {
@@ -1118,19 +1436,71 @@ footer.page-foot li { margin-bottom: 6px; color: var(--text-2); }
     const el = document.getElementById(id);
     if (el) sections.push({ id, el, link: a });
   });
+  let activeLink = null;
+  function setActive(link) {
+    if (activeLink === link) return;
+    tocLinks.forEach(l => l.classList.remove('active'));
+    if (link) { link.classList.add('active'); activeLink = link; }
+  }
   if ('IntersectionObserver' in window && sections.length) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const s = sections.find(x => x.el === e.target);
-          if (s) {
-            tocLinks.forEach(l => l.classList.remove('active'));
-            s.link.classList.add('active');
-          }
+    const io = new IntersectionObserver(() => {
+      // 현재 뷰포트 교차 중인 섹션 중 가장 상단
+      let top = null, topY = Infinity;
+      for (const s of sections) {
+        const r = s.el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.35 && r.bottom > 80 && r.top < topY) {
+          topY = r.top; top = s;
         }
-      });
-    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 });
+      }
+      setActive(top ? top.link : null);
+    }, { rootMargin: '-10% 0px -80% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
     sections.forEach(s => io.observe(s.el));
+  }
+
+  // ---- Accordion (Part III 던전) ----
+  function openAccordion(trigger) {
+    const panelId = trigger.getAttribute('aria-controls');
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    trigger.setAttribute('aria-expanded', 'true');
+    panel.classList.add('is-open');
+  }
+  function closeAccordion(trigger) {
+    const panelId = trigger.getAttribute('aria-controls');
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+    trigger.setAttribute('aria-expanded', 'false');
+    panel.classList.remove('is-open');
+  }
+  function toggleAccordion(trigger) {
+    if (trigger.getAttribute('aria-expanded') === 'true') closeAccordion(trigger);
+    else openAccordion(trigger);
+  }
+  document.querySelectorAll('.accordion-trigger').forEach(t => {
+    t.addEventListener('click', () => toggleAccordion(t));
+  });
+
+  // ---- Jump helper: TOC/summary table link → 해당 아코디언 자동 오픈 + 스크롤 ----
+  function jumpToAccordion(id) {
+    const accord = document.getElementById(id);
+    if (!accord) return;
+    const trig = accord.querySelector('.accordion-trigger');
+    if (trig && trig.getAttribute('aria-expanded') === 'false') {
+      openAccordion(trig);
+    }
+    // 부드러운 스크롤은 브라우저 기본 해시 스크롤에 맡김
+  }
+  // 요약 테이블의 링크 + TOC의 d-* 링크 모두
+  document.querySelectorAll('[data-accord], .toc-list a[href^="#d-"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href') || '';
+      const id = a.dataset.accord || href.slice(1);
+      if (id) setTimeout(() => jumpToAccordion(id), 50);
+    });
+  });
+  // 페이지 로드 시 해시로 접근하면 해당 아코디언 오픈
+  if (location.hash && /^#d-/.test(location.hash)) {
+    jumpToAccordion(location.hash.slice(1));
   }
 })();
 </script>
