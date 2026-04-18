@@ -25,7 +25,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..900;1,8..60,400..900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- 실제 사용 폰트: Source Serif 4(제목/이탤릭) + JetBrains Mono(코드/라벨) + Pretendard(본문 KR) -->
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
 
 <style>
@@ -35,8 +36,8 @@
  * ================================================================ */
 
 :root {
-  --font-serif: 'Source Serif 4', 'Noto Serif KR', Georgia, serif;
-  --font-sans:  'Pretendard Variable', Pretendard, 'Inter', -apple-system, system-ui, sans-serif;
+  --font-serif: 'Source Serif 4', 'Pretendard Variable', Pretendard, Georgia, serif;
+  --font-sans:  'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   --font-mono:  'JetBrains Mono', 'SF Mono', Consolas, monospace;
 
   /* spacing / sizing */
@@ -616,22 +617,209 @@ button:focus-visible,
 /* ---------- utility: half-width figure ---------- */
 .figure-half { max-width: 520px; }
 
+/* ================================================================
+ * 논문 스타일 고도화 (design-validator 제안 반영)
+ * ================================================================ */
+
+/* ---- Drop cap: 각 Part 의 첫 문단 ---- */
+.dropcap::first-letter {
+  font-family: var(--font-serif);
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.92;
+  padding: 0.08em 0.1em 0 0;
+  color: var(--accent);
+  font-weight: 500;
+  font-feature-settings: 'ss01' on;
+}
+
+/* ---- Figure/Table 자동 넘버링 (CSS counter) ---- */
+body { counter-reset: fig 0 tbl 0; }
+/* Research 논문 스타일로 Fig./Table. 라벨 자동 부여.
+   일반 figure 는 모두 증가; 테이블도 wrap 으로 카운트. */
+main figure { counter-increment: fig; }
+main figure figcaption::before {
+  content: "Fig. " counter(fig) ". ";
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-right: 4px;
+}
+/* Table: .tbl-wrap 단위로 카운트하여 caption 생성.
+   기존 표는 caption 이 없으므로 CSS content 만 삽입 불가 → .tbl-caption 헬퍼 제공 */
+.tbl-caption {
+  counter-increment: tbl;
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.tbl-caption::before { content: "Table " counter(tbl) ". "; }
+.tbl-caption .desc {
+  color: var(--text-dim);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+/* ---- Footnote references ---- */
+.fn-ref {
+  font-family: var(--font-mono);
+  font-size: 0.72em;
+  vertical-align: super;
+  color: var(--accent);
+  padding: 0 2px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+.fn-ref:hover, .fn-ref:focus-visible { background: var(--accent-weak); border-radius: 2px; }
+.footnotes {
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-sm);
+  counter-reset: fn 0;
+}
+.footnotes h3 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 var(--sp-3);
+}
+.footnotes ol { list-style: none; padding: 0; counter-reset: fn 0; }
+.footnotes li {
+  counter-increment: fn;
+  position: relative;
+  padding-left: 2.2em;
+  margin-bottom: var(--sp-2);
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.footnotes li::before {
+  content: counter(fn);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  padding: 1px 6px;
+  border: 1px solid var(--border-str);
+  border-radius: 3px;
+  min-width: 1.6em;
+  text-align: center;
+}
+.fn-back {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin-left: 4px;
+  border-bottom: none;
+}
+.fn-back:hover { color: var(--accent); }
+
+/* ---- Tufte-style margin notes (1100px+) ---- */
+.sidenote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--text-dim);
+  margin: var(--sp-3) 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-left: 2px solid var(--border-str);
+  background: var(--bg-2);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.sidenote em, .sidenote strong { color: var(--text-2); }
+
+/* 1180px 이상 — Tufte-style 여백 활용 (float right) */
+@media (min-width: 1180px) {
+  .shell { max-width: 1320px; }
+  .sidenote {
+    float: right;
+    clear: right;
+    width: 180px;
+    margin-right: -210px;
+    margin-top: 0;
+    margin-bottom: var(--sp-3);
+    padding: 0 0 0 var(--sp-3);
+    border-left: 1px solid var(--border);
+    background: transparent;
+    border-radius: 0;
+    font-size: var(--fs-xs);
+    font-style: italic;
+  }
+}
+
+/* ---------- TOC mobile toggle button (데스크톱에선 숨김) ---------- */
+.toc-toggle {
+  display: none;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  padding: var(--sp-3) var(--sp-2);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-2);
+  text-align: left;
+}
+.toc-toggle:hover { color: var(--accent); }
+.toc-toggle .chev {
+  margin-left: auto;
+  width: 14px; height: 14px;
+  transition: transform 0.25s var(--ease);
+}
+.toc-toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
+
 /* ---------- mobile ---------- */
 @media (max-width: 900px) {
   .shell { grid-template-columns: 1fr; gap: 0; padding: 0 var(--sp-4); }
   .toc {
-    position: static;
+    position: sticky; top: 0;
     height: auto;
-    padding: var(--sp-5) 0;
+    padding: 0;
     border-right: none;
     border-bottom: 1px solid var(--border);
-    max-height: 50vh;
+    max-height: none;
+    background: var(--bg);
+    z-index: 20;
   }
-  .content { padding: var(--sp-6) 0 var(--sp-10); }
+  .toc-toggle { display: flex; }
+  .toc h1, .toc-eyebrow, .toc nav, .toc-footer {
+    display: none;
+  }
+  .toc.is-open nav { display: block; padding: 0 var(--sp-2) var(--sp-4); max-height: 60vh; overflow-y: auto; }
+  .toc.is-open h1 { display: block; padding: var(--sp-3) var(--sp-2) 0; font-size: 0.95rem; }
+  .toc.is-open .toc-eyebrow { display: block; padding: var(--sp-2) var(--sp-2) 0; }
+  .content { padding: var(--sp-5) 0 var(--sp-10); }
   .masthead h1 { font-size: 2rem; }
   section > h2 { font-size: 1.6rem; }
   section > h3 { font-size: 1.2rem; }
-  .theme-toggle { top: 10px; right: 10px; }
+  .theme-toggle { top: 8px; right: 8px; width: 34px; height: 34px; }
+  /* 모바일에서 sidenote 는 본문 흐름 안에 인라인 블록으로 */
+  .sidenote { float: none; width: auto; margin: var(--sp-3) 0; padding: var(--sp-2) var(--sp-3); border-left: 2px solid var(--border-str); background: var(--bg-2); }
   /* 아코디언 트리거 모바일 — 태그·알리아스는 트리거 아래로 쌓이게 */
   .accordion-trigger { flex-wrap: wrap; font-size: var(--fs-md); }
   .accordion-trigger .title { flex: 1 1 100%; order: 1; }
@@ -682,10 +870,14 @@ button:focus-visible,
 <!-- ================================================================ -->
 <!-- LEFT TOC -->
 <!-- ================================================================ -->
-<aside class="toc" aria-label="목차">
+<aside class="toc" aria-label="목차" id="toc">
+  <button class="toc-toggle" id="tocToggle" aria-expanded="false" aria-controls="toc-nav">
+    <span>목차 · Contents</span>
+    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
   <div class="toc-eyebrow">Table of Contents</div>
   <h1>글래스터 가이드</h1>
-  <nav>
+  <nav id="toc-nav">
     <ul class="toc-list">
       <li><a href="#abstract">요약</a></li>
       <li><a href="#part1">I &nbsp;&nbsp;기초 시스템</a></li>
@@ -713,6 +905,7 @@ button:focus-visible,
       <li><a href="#part5">V &nbsp;VC · 진 글래</a></li>
       <li><a href="#part6">VI 고급 최적화</a></li>
       <li><a href="#glossary">부록 · 용어표</a></li>
+      <li><a href="#footnotes">Footnotes</a></li>
       <li><a href="#credits">출처 · 크레딧</a></li>
     </ul>
   </nav>
@@ -748,10 +941,11 @@ button:focus-visible,
 <!-- ================================================================ -->
 <section id="part1">
   <h2><span class="num">PART I</span>기초 시스템</h2>
-  <p>글래스터 시스템을 처음 접하는 플레이어를 위한 개념 정리. 이 파트만 읽어도 전체 그림을 잡을 수 있도록 설계했다.</p>
+  <p class="dropcap">글래스터 시스템을 처음 접하는 플레이어를 위한 개념 정리. 이 파트만 읽어도 전체 그림을 잡을 수 있도록 설계했다.</p>
 
   <h3 id="sec-1-1">1. 개념과 4계열</h3>
-  <p>글래스터는 메인스토리 2부 전편(제48장) 클리어 후 해금되는 <strong>장비 슬롯</strong>이다. 캐릭터의 공격력을 단순히 더해주는 것이 아니라 <em>속성 강화 · 회복 · 상태이상 · 필살기 부여</em>를 세밀히 튜닝한다.</p>
+  <aside class="sidenote">글래스터는 일본어 명칭 <em>グラスタ (Grasta)</em>의 한국어 공식명이다. 커뮤니티에선 "글래"로 줄여 부른다.</aside>
+  <p>글래스터는 메인스토리 2부 전편(제48장<a href="#fn-1" id="fn-1-ref" class="fn-ref" aria-describedby="fn-1">1</a>) 클리어 후 해금되는 <strong>장비 슬롯</strong>이다. 캐릭터의 공격력을 단순히 더해주는 것이 아니라 <em>속성 강화 · 회복 · 상태이상 · 필살기 부여</em>를 세밀히 튜닝한다.</p>
 
   <div class="tbl-wrap">
     <table>
@@ -782,6 +976,7 @@ button:focus-visible,
 
   <h4>등급 체계</h4>
   <div class="tbl-wrap">
+    <span class="tbl-caption">등급별 스탯 보너스와 효과치 <span class="desc">연성 배수는 광석 장착 시 값</span></span>
     <table>
       <thead><tr><th>등급</th><th>스탯 보너스</th><th>대표 효과치</th><th>입수 난이도</th></tr></thead>
       <tbody>
@@ -818,7 +1013,7 @@ button:focus-visible,
 <!-- ================================================================ -->
 <section id="part2">
   <h2><span class="num">PART II</span>강화와 연성</h2>
-  <p>글래스터는 3단계 강화 경로를 거친다 — <strong>활성화 → 각성 → 연성</strong>. 처음 두 단계는 고양이 신전(사당)에서 수행하고, 연성은 제70장 이후 추가되는 최종 강화다.</p>
+  <p class="dropcap">글래스터는 3단계 강화 경로를 거친다 — <strong>활성화 → 각성 → 연성</strong>. 처음 두 단계는 고양이 신전(사당)에서 수행하고, 연성은 제70장 이후 추가되는 최종 강화다.</p>
 
   <h3 id="sec-2-1">1. 활성화와 각성</h3>
   <p>비활성 상태의 글래스터는 스탯조차 붙지 않는다. 활성화로 기본 스탯을 얻고, 각성으로 특수 효과가 발현된다. 동방 가를레아 각지의 <em>고양이 신전</em>에서 수행하며, 제54장 서브이벤트 <em>방울부적의 은혜</em> 완료 시 메인 메뉴에서도 가능해진다.</p>
@@ -878,7 +1073,7 @@ button:focus-visible,
 
   <div class="callout warn">
     <h4>WARN — 곱셈 vs 덧셈 (빌드 결정의 핵심)</h4>
-    <p><strong>같은 효과의 상급 글래스터</strong>끼리는 <em>곱셈</em>으로 쌓인다. 예: <span class="term">통증의 힘</span> 3개 장착 시 페인 발동 시 배율은 1.3³ ≈ <code>2.197배</code>. 반면 <strong>속성 중급 글래스터</strong> 3개는 <em>덧셈</em>으로 +60%. 곱셈 빌드가 극단적으로 강한 이유다.</p>
+    <p><strong>같은 효과의 상급 글래스터</strong>끼리는 <em>곱셈</em>으로 쌓인다. 예: <span class="term">통증의 힘</span> 3개 장착 시 페인 발동 시 배율은 1.3³ ≈ <code>2.197배</code><a href="#fn-2" id="fn-2-ref" class="fn-ref" aria-describedby="fn-2">2</a>. 반면 <strong>속성 중급 글래스터</strong> 3개는 <em>덧셈</em>으로 +60%. 곱셈 빌드가 극단적으로 강한 이유다.</p>
   </div>
 </section>
 
@@ -887,9 +1082,10 @@ button:focus-visible,
 <!-- ================================================================ -->
 <section id="part3">
   <h2><span class="num">PART III</span>던전별 획득처</h2>
-  <p>글래스터와 연성 광석은 대부분 <em>Another Dungeon(AD)</em>에서 얻는다. 아래 요약 표에서 전체 던전을 한눈에 비교하고, 각 아코디언을 열어 세부 공략 이미지와 교환 포인트를 확인하라. 이미지는 일본 <a href="https://altema.jp/anaden" target="_blank" rel="noopener">altema.jp</a>와 한국 <a href="https://arca.live/b/anothereden" target="_blank" rel="noopener">arca.live 어나더 에덴 채널</a>에서 인용했다.</p>
+  <p class="dropcap">글래스터와 연성 광석은 대부분 <em>Another Dungeon(AD)</em>에서 얻는다. 아래 요약 표에서 전체 던전을 한눈에 비교하고, 각 아코디언을 열어 세부 공략 이미지와 교환 포인트를 확인하라. 이미지는 일본 <a href="https://altema.jp/anaden" target="_blank" rel="noopener">altema.jp</a>와 한국 <a href="https://arca.live/b/anothereden" target="_blank" rel="noopener">arca.live 어나더 에덴 채널</a>에서 인용했다<a href="#fn-3" id="fn-3-ref" class="fn-ref" aria-describedby="fn-3">3</a>.</p>
 
   <div class="tbl-wrap dungeon-summary">
+    <span class="tbl-caption">14개 Another Dungeon 요약 <span class="desc">던전명 클릭 → 해당 섹션 자동 확장</span></span>
     <table>
       <thead><tr><th style="width:16%">던전</th><th>파트</th><th>해금</th><th>핵심 획득</th></tr></thead>
       <tbody>
@@ -1136,7 +1332,8 @@ button:focus-visible,
 <!-- ================================================================ -->
 <section id="part4">
   <h2><span class="num">PART IV</span>추천 세팅 원칙</h2>
-  <p>대부분의 캐릭터에게 통용되는 <em>범용 빌드 원칙</em>은 네 가지로 귀결된다 — <strong>곱셈 중첩</strong>, <strong>속성 가산</strong>, <strong>광석 조합</strong>, <strong>P연성 셔틀</strong>. 이 장은 단계별 우선순위와 실제 수치 계산까지 포함한다.</p>
+  <p class="dropcap">대부분의 캐릭터에게 통용되는 <em>범용 빌드 원칙</em>은 네 가지로 귀결된다 — <strong>곱셈 중첩</strong>, <strong>속성 가산</strong>, <strong>광석 조합</strong>, <strong>P연성 셔틀</strong>. 이 장은 단계별 우선순위와 실제 수치 계산까지 포함한다.</p>
+  <aside class="sidenote">"페페페", "독독독" 같은 약칭은 한국 커뮤니티의 자생 표기. 공식 명칭은 <em>통증의 힘 ×3</em>, <em>유독의 힘 ×3</em>.</aside>
 
   <h3 id="sec-4-0">0. 빌드 결정 트리</h3>
   <p>내 캐릭터가 어떤 빌드로 수렴해야 하는지 판단하는 가장 빠른 길:</p>
@@ -1200,8 +1397,10 @@ button:focus-visible,
 
   <h3 id="sec-4-2">2. 곱셈 빌드의 실제 수치 — 페페페 / 독독독</h3>
   <p>같은 효과 상급 글래스터 3개를 겹치면 <em>곱셈</em>으로 누적된다. 이 곱셈 구조가 페인/독 빌드를 "극단적으로 강한 선택"으로 만드는 핵심 이유.</p>
+  <aside class="sidenote">닦이가 <em>페인 명중률 100%</em>를 먼저 보장해야 곱셈이 기대대로 발동한다. 상태이상 내성 보스는 이 전제를 깬다.</aside>
 
   <div class="tbl-wrap">
+    <span class="tbl-caption">페페페 누적 배율 <span class="desc">1.3의 지수 성장</span></span>
     <table>
       <thead><tr><th>장착 수</th><th>통증의 힘 (페인 시)</th><th>수식</th><th>누적 배율</th></tr></thead>
       <tbody>
@@ -1358,6 +1557,24 @@ button:focus-visible,
 </section>
 
 <!-- ================================================================ -->
+<!-- Footnotes -->
+<!-- ================================================================ -->
+<section id="footnotes" class="footnotes" aria-labelledby="fn-title">
+  <h3 id="fn-title">Footnotes</h3>
+  <ol>
+    <li id="fn-1">
+      제48장 클리어 직후 튜토리얼에서 <em>글래스터</em> 개념이 처음 등장하며, 동시에 1번 슬롯이 자동 개방된다. 2번(50장)/3번(55장)은 진도 연동. <a href="#fn-1-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
+    </li>
+    <li id="fn-2">
+      1.3³ = 2.197은 페인 상태일 때의 <em>순수 곱셈</em> 배율. 여기에 연성 광석, 약점 배율, AF 배수가 별도 곱해지므로 실제 전투에선 더 크게 튄다. 상세 수치는 일본 커뮤니티 검증글 및 <em>altema.jp</em>의 시뮬레이션 결과를 참조. <a href="#fn-2-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
+    </li>
+    <li id="fn-3">
+      던전 맵 이미지는 <em>altema.jp/anaden/*</em> 의 공략 페이지에서 직접 링크되며, 저작권은 altema 및 각 게시자에게 있다. 본 가이드는 비영리 팬 콘텐츠로 fair use 범위에서 인용한다. <a href="#fn-3-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
+    </li>
+  </ol>
+</section>
+
+<!-- ================================================================ -->
 <!-- Credits -->
 <!-- ================================================================ -->
 <footer class="page-foot" id="credits">
@@ -1479,6 +1696,25 @@ button:focus-visible,
   document.querySelectorAll('.accordion-trigger').forEach(t => {
     t.addEventListener('click', () => toggleAccordion(t));
   });
+
+  // ---- Mobile TOC toggle (햄버거) ----
+  const tocEl = document.getElementById('toc');
+  const tocToggleBtn = document.getElementById('tocToggle');
+  if (tocToggleBtn && tocEl) {
+    tocToggleBtn.addEventListener('click', () => {
+      const open = tocEl.classList.toggle('is-open');
+      tocToggleBtn.setAttribute('aria-expanded', String(open));
+    });
+    // 모바일에서 TOC 링크 클릭 시 자동 닫기 (읽기 흐름 유지)
+    tocEl.querySelectorAll('.toc-list a').forEach(a => {
+      a.addEventListener('click', () => {
+        if (window.matchMedia('(max-width: 900px)').matches) {
+          tocEl.classList.remove('is-open');
+          tocToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
 
   // ---- Jump helper: TOC/summary table link → 해당 아코디언 자동 오픈 + 스크롤 ----
   function jumpToAccordion(id) {
