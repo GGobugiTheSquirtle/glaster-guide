@@ -945,7 +945,7 @@ main figure figcaption::before {
 
   <h3 id="sec-1-1">1. 개념과 4계열</h3>
   <aside class="sidenote">글래스터는 일본어 명칭 <em>グラスタ (Grasta)</em>의 한국어 공식명이다. 커뮤니티에선 "글래"로 줄여 부른다.</aside>
-  <p>글래스터는 메인스토리 2부 전편(제48장<a href="#fn-1" id="fn-1-ref" class="fn-ref" aria-describedby="fn-1">1</a>) 클리어 후 해금되는 <strong>장비 슬롯</strong>이다. 캐릭터의 공격력을 단순히 더해주는 것이 아니라 <em>속성 강화 · 회복 · 상태이상 · 필살기 부여</em>를 세밀히 튜닝한다.</p>
+  <p>글래스터는 메인스토리 2부 전편(제48장<a href="#fn-1" id="fn-1-ref" class="fn-ref" aria-describedby="fn-1">1</a>)에서 <strong>시스템 자체가 해금</strong>되고, <strong>현대 가를레아 어나던은 제55장 클리어 후</strong> 입장 가능하다. 이 둘은 시점이 다르므로 혼동하지 말 것. 이후 캐릭터의 공격력을 단순히 더해주는 것이 아니라 <em>속성 강화 · 회복 · 상태이상 · 필살기 부여</em>를 세밀히 튜닝하는 제3의 장비 계층이 된다.</p>
 
   <div class="tbl-wrap">
     <table>
@@ -1059,14 +1059,18 @@ main figure figcaption::before {
   <p>대표 잠재 광석의 효과치를 숫자로 정리하면 다음과 같다. 같은 효과군 광석을 중첩 장착할 때의 곱셈·덧셈 여부는 <em>실제 세팅의 효율을 완전히 갈라놓는</em> 핵심 포인트.</p>
 
   <div class="tbl-wrap">
+    <span class="tbl-caption">주요 연성 광석 <span class="desc">동일 광석 중첩 불가 · 다른 효과 광석은 공존</span></span>
     <table>
       <thead><tr><th>광석</th><th>약칭</th><th>효과</th><th>중첩</th></tr></thead>
       <tbody>
-        <tr><th>장미가시</th><td>장미</td><td>데미지 +15% / MP 소모 +50%</td><td>—</td></tr>
-        <tr><th>배수의 진</th><td>배수</td><td>적 2체 이상 시 데미지 ↑</td><td>—</td></tr>
-        <tr><th>시련</th><td>시련</td><td>약점 데미지 +10%</td><td>포박과 가산</td></tr>
-        <tr><th>저격</th><td>저격</td><td>AF 외 데미지 +50%</td><td>—</td></tr>
-        <tr><th>구사일생</th><td>버티기</td><td>HP 풀일 때 전투 중 1회 HP 1 생존</td><td>—</td></tr>
+        <tr><th>장미가시</th><td>장미</td><td>스킬 데미지 <strong>+15%</strong> · MP 소모 +50%</td><td>중첩 불가</td></tr>
+        <tr><th>배수의 진</th><td>배수</td><td>적 2체+ 시 <strong>1체당 +30%</strong> (4체면 +90%)</td><td>중첩 불가</td></tr>
+        <tr><th>시련</th><td>시련</td><td>약점 데미지 <strong>+10%</strong></td><td>포박과 가산</td></tr>
+        <tr><th>저격</th><td>저격</td><td>AF 외 데미지 <strong>+50%</strong></td><td>중첩 불가</td></tr>
+        <tr><th>구사일생</th><td>버티기</td><td>HP 풀 시 전투 중 1회 HP 1 생존</td><td>중첩 불가</td></tr>
+        <tr><th>상태이상 인핸스 (도발/봉인/독/페인)</th><td>—</td><td>해당 상태이상 발동 시 데미지 <strong>+50%</strong></td><td>독/페인 인핸스는 페페페와 별도 가산</td></tr>
+        <tr><th>천명부스트 (힘/지능/속도)</th><td>천명힘/천명지능</td><td>기본 +5 · <strong>천명 19당 +1</strong> · 최대 +18 (천명 248)</td><td>엔드게임용</td></tr>
+        <tr><th>회심/마회심</th><td>회심/마크리</td><td>물리 or 마법 크리티컬률 <strong>+15%</strong></td><td>중첩 불가</td></tr>
       </tbody>
     </table>
   </div>
@@ -1074,6 +1078,11 @@ main figure figcaption::before {
   <div class="callout warn">
     <h4>WARN — 곱셈 vs 덧셈 (빌드 결정의 핵심)</h4>
     <p><strong>같은 효과의 상급 글래스터</strong>끼리는 <em>곱셈</em>으로 쌓인다. 예: <span class="term">통증의 힘</span> 3개 장착 시 페인 발동 시 배율은 1.3³ ≈ <code>2.197배</code><a href="#fn-2" id="fn-2-ref" class="fn-ref" aria-describedby="fn-2">2</a>. 반면 <strong>속성 중급 글래스터</strong> 3개는 <em>덧셈</em>으로 +60%. 곱셈 빌드가 극단적으로 강한 이유다.</p>
+  </div>
+
+  <div class="callout tip">
+    <h4>TIP — 엔드게임 풀빌드 배율</h4>
+    <p>메인 딜러에 <strong>통증×3 + 장미 + 배수 + 저격</strong>, 후열 셔틀에 <strong>P연성 4종</strong>, 추가로 <strong>존 광석</strong>까지 갖추면 이론상 <code>약 ×13.34배 (+1234%)</code> 배율에 도달한다<a href="#fn-4" id="fn-4-ref" class="fn-ref" aria-describedby="fn-4">4</a>. 이 수치가 "글래스터 투자가 곧 딜이다"의 정량적 근거.</p>
   </div>
 </section>
 
@@ -1089,10 +1098,10 @@ main figure figcaption::before {
     <table>
       <thead><tr><th style="width:16%">던전</th><th>파트</th><th>해금</th><th>핵심 획득</th></tr></thead>
       <tbody>
-        <tr><td><a href="#d-pgad" data-accord="d-pgad">현대 가를레아</a></td><td><span class="tag accent">PGAD · 2부 전편</span></td><td>제48장</td><td>하·중급 글래, 황금 무기 파편, 고양이 에마</td></tr>
-        <tr><td><a href="#d-agad" data-accord="d-agad">고대 가를레아</a></td><td><span class="tag accent">AGAD · 2부 중편</span></td><td>제66장</td><td>마물의 뼈, 선진적인 토우, 고대 방어구</td></tr>
-        <tr><td><a href="#d-fgad" data-accord="d-fgad">미래 가를레아</a></td><td><span class="tag accent">FGAD · 2부 후전(轉)</span></td><td>제74장</td><td>변질 광석, 영석 조각, 초밥 무기 4종</td></tr>
-        <tr><td><a href="#d-uad" data-accord="d-uad">명협계</a></td><td><span class="tag accent">UAD · 2부 후결(結)</span></td><td>제83장</td><td>표류물, 고양이 토우, 아공 무기 소재</td></tr>
+        <tr><td><a href="#d-pgad" data-accord="d-pgad">현대 가를레아</a></td><td><span class="tag accent">PGAD · 2부 전편</span></td><td>제55장</td><td>하·중급 속성 글래, 황금 무기 파편, 고양이 에마</td></tr>
+        <tr><td><a href="#d-agad" data-accord="d-agad">고대 가를레아</a></td><td><span class="tag accent">AGAD · 2부 중편</span></td><td>제66장</td><td><strong>통증/유독의 힘</strong> 드랍, 마물의 뼈, 선진적인 토우</td></tr>
+        <tr><td><a href="#d-fgad" data-accord="d-fgad">미래 가를레아</a></td><td><span class="tag accent">FGAD · 2부 후전(轉)</span></td><td>제74장</td><td>변질 광석, 영석 조각, <strong>기본 연성 광석 18종</strong> 드랍</td></tr>
+        <tr><td><a href="#d-uad" data-accord="d-uad">명협계</a></td><td><span class="tag accent">UAD · 2부 후결(結)</span></td><td>제84장</td><td>표류물, <strong>명협계 12종 추가 광석</strong>, 아공 무기, <strong>포박의 힘</strong> (84장 메인)</td></tr>
         <tr><td><a href="#d-oad" data-accord="d-oad">오메가폴리스</a></td><td><span class="tag accent">OAD · 3부 전편</span></td><td>제92장</td><td>버디 장비, 엘피스 무기, 황금 태엽</td></tr>
         <tr><td><a href="#d-ead" data-accord="d-ead">엔트라나</a></td><td><span class="tag accent">EAD · 3부 중편</span></td><td>제104장</td><td>천년 나무 방어구, 연대기 무기, 堅多比</td></tr>
         <tr><td><a href="#d-jad" data-accord="d-jad">지스몬데</a></td><td><span class="tag accent">3부 후편</span></td><td>제114장</td><td>화정 방어구, 신규 연성 광석, タネ箒</td></tr>
@@ -1114,12 +1123,12 @@ main figure figcaption::before {
     <div class="accordion-panel" id="p-pgad" role="region" aria-labelledby="d-pgad">
       <div class="dungeon-body">
         <dl class="meta">
-          <dt>해금</dt><dd>메인 제48장 클리어 직후</dd>
-          <dt>주요 획득</dt><dd>현대 동방 무기·방어구, 황금 무기 파편, 조각·결정(공/생/지)</dd>
+          <dt>해금</dt><dd>메인 제55장 클리어 후 입장 가능 (시스템 자체는 48장)</dd>
+          <dt>주요 획득</dt><dd>현대 동방 무기·방어구, 황금 무기 파편, 속성 중급 글래(공/생/지)</dd>
           <dt>입장 비용</dt><dd>그린키 2개</dd>
-          <dt>주 교환 NPC</dt><dd>이자나 (고양이 에마 1·2 교환 완료), 나그샴 (잡동사니 교환)</dd>
+          <dt>주 교환 NPC</dt><dd>이자나 (고양이 에마 교환), 나그샴 (잡동사니 교환)</dd>
         </dl>
-        <p>글래스터 파밍의 출발점. 분기형 2지선다 구조에 6종류 에어리어 중 2개가 랜덤 출현한다. 하급·중급 공격/생명/지원 글래스터를 꾸준히 수급하고, 이자나 NPC와 고양이 에마를 교환해 상급을 얻는 루트가 표준.</p>
+        <p>글래스터 파밍의 출발점. 8개 맵 중 랜덤 2개와 연결되는 분기 구조이며, 뉴비는 여기서 <em>속성 중급 글래스터</em>를 모아 "중중중" 세팅을 먼저 완성하는 것이 표준. 상급은 1회 교환 한정이므로 나중으로 미룬다.</p>
         <figure class="figure-half">
           <img loading="lazy" width="520" height="260" alt="현대 가를레아 대륙 AD 입구 썸네일"
             src="https://img.altema.jp/anaden/uploads/2021/07/2021y07m27d_1326254565.jpg">
@@ -1141,11 +1150,12 @@ main figure figcaption::before {
       <div class="dungeon-body">
         <dl class="meta">
           <dt>해금</dt><dd>메인 제66장 클리어 후</dd>
-          <dt>주요 획득</dt><dd>마물의 뼈, 선진적인 토우, 고대 무기·방어구</dd>
+          <dt>핵심 획득</dt><dd><strong>통증의 힘 · 유독의 힘</strong> 드랍 (페페페·독독독 세팅의 재료 던전)</dd>
+          <dt>교환 소재</dt><dd>마물의 뼈, 선진적인 토우, 고대 무기·방어구</dd>
           <dt>추천 에어리어</dt><dd>토우의 비경 → 뼈 파밍 3곳</dd>
-          <dt>교환 NPC</dt><dd>가다로(세련된 토우 교환), 자미(마물의 뼈 교환)</dd>
+          <dt>교환 NPC</dt><dd>가다로(세련된 토우), 자미(마물의 뼈)</dd>
         </dl>
-        <p>도구(토우·뼈)를 모아 상급 글래스터 및 방어구를 교환한다. 도구는 던전을 포기해도 인벤토리에 남으므로, <em>원하는 에어리어만 도는 부분 파밍</em>이 가능하다.</p>
+        <p>엔드게임 곱셈 빌드의 실질적 출발점. <em>통증의 힘 / 유독의 힘</em> 중급 글래스터가 여기서 드랍되므로, 무기별로 최소 6개씩 모아두는 것이 권장된다. 도구는 던전을 포기해도 인벤토리에 남아 <em>원하는 에어리어만 도는 부분 파밍</em>이 가능하다.</p>
         <figure class="figure-half">
           <img loading="lazy" width="520" height="260" alt="고대 가를레아 대륙 AD 입구"
             src="https://img.altema.jp/anaden/uploads/2019/08/2019y08m08d_2307268091.jpg">
@@ -1167,9 +1177,9 @@ main figure figcaption::before {
       <div class="dungeon-body">
         <dl class="meta">
           <dt>해금</dt><dd>메인 제74장 클리어 후</dd>
-          <dt>주요 획득</dt><dd>변질 광석(통화), 영석의 조각, 초밥 무기 4종</dd>
+          <dt>핵심 획득</dt><dd><strong>기본 연성 광석 18종 드랍</strong> (장미·배수·시련·저격·구사일생 포함)</dd>
+          <dt>통화</dt><dd>변질 광석 (13개 → 신에어리어 / 13개 → ID카드 / 180개 → 글래 연성 소재)</dd>
           <dt>우선 교환</dt><dd>영석 조각 1개 → 嚮後 시리즈 방어구 (전속성 공격 ↑)</dd>
-          <dt>연성 소재</dt><dd>변질 광석 180개 → 글래스터 연성 소재 교환</dd>
         </dl>
         <p>4층 구조 — <em>거점 → 소재 채집 → 보물 → 보스</em>. 변질 광석을 모아 신에어리어 개방(13개), ID카드(13개), 글래스터 연성 소재 교환(180개)에 사용한다. AF 1~2턴 내 보스 격파 로테가 주회 효율의 정석.</p>
         <figure class="figure-half">
@@ -1192,8 +1202,9 @@ main figure figcaption::before {
     <div class="accordion-panel" id="p-uad" role="region" aria-labelledby="d-uad">
       <div class="dungeon-body">
         <dl class="meta">
-          <dt>해금</dt><dd>메인 제83장 클리어 후</dd>
-          <dt>주요 획득</dt><dd>표류물, 고양이 토우, 아공 무기 8종 소재</dd>
+          <dt>해금</dt><dd>메인 제84장 클리어 후</dd>
+          <dt>핵심 획득</dt><dd><strong>포박의 힘</strong> (제84장 메인 보상) · <strong>명협계 전용 12종 광석 추가 드랍</strong> (미가를 18종 + 명협 12종 = 총 30종)</dd>
+          <dt>기타 획득</dt><dd>표류물, 고양이 토우, 아공 무기 8종 소재</dd>
           <dt>HARD 교환</dt><dd>숙성 버섯 · 기도의 손거울 · 황천의 짧은 낫</dd>
           <dt>경로</dt><dd>귀화 동굴 · 차원 대성당 · 황천의 방주 (3루트)</dd>
         </dl>
@@ -1420,38 +1431,62 @@ main figure figcaption::before {
     <p>상태이상 내성 몬스터 또는 레지스턴스 +50% 보스에서는 페페페가 발동 않고 실효 데미지가 <em>기본값 ×1.00</em>으로 떨어진다. 이런 보스는 중중중이 오히려 안정적 — 빌드를 고정하지 말고 콘텐츠별 스왑하는 습관을 들여야 한다.</p>
   </div>
 
-  <h3 id="sec-4-3">3. 광석 조합의 수학 — 가산/곱셈/조건부</h3>
-  <p>광석은 동일 효과는 중첩할 수 없으나 서로 다른 효과는 각자의 조건에 따라 <em>곱셈 또는 가산</em>으로 중첩된다. 주요 조합과 그 효과식:</p>
+  <h3 id="sec-4-3">3. 상급 글래스터별 획득처 + 광석 조합 예시</h3>
+  <p>빌드의 뼈대가 되는 <strong>상급 글래스터</strong>는 대부분 1회 한정 보상이다. 어디서 얻는지 먼저 알아야 빌드 설계가 가능하다.</p>
 
   <div class="tbl-wrap">
+    <span class="tbl-caption">상급 글래스터 획득처</span>
     <table>
-      <thead><tr><th>조합</th><th>조건</th><th>효과</th><th>추천 대상</th></tr></thead>
+      <thead><tr><th>상급 글래</th><th>효과</th><th>획득처</th></tr></thead>
       <tbody>
-        <tr><td><strong>시련 + 포박</strong></td><td>약점 타격</td><td>+10% + +50% = <code>+60% 가산</code></td><td>약점 저격 빌더</td></tr>
-        <tr><td><strong>장미 + 배수</strong></td><td>적 2체+ · HP 풀</td><td><code>+15% × 배수%</code> 곱셈</td><td>잡몹 쓸이 AoE</td></tr>
-        <tr><td><strong>저격 + 버티기</strong></td><td>AF 외 · HP 1 안전망</td><td><code>+50% 안정성↑</code></td><td>보스 러쉬</td></tr>
-        <tr><td><strong>시련 + 저격 + 포박</strong></td><td>AF 외 약점 타격</td><td><code>+10% + 50% + 50%</code></td><td>엔드게임 원턴덱</td></tr>
+        <tr><th>자창의 힘</th><td>페인 시 +35% (통증 +30%의 상위)</td><td><strong>서브 퀘스트 1회 한정</strong> (뉴비는 경옥 비용상 후순위 권장)</td></tr>
+        <tr><th>포박의 힘</th><td>약점 데미지 +50% (시련 +10%와 별도)</td><td><strong>메인 제84장 보상</strong> · 보스러쉬 1.5부 보상</td></tr>
+        <tr><th>광성의 힘</th><td>루나틱 상태 2턴 연장</td><td><strong>서방회경 엔딩 후 고대의 인공정령</strong> 클리어</td></tr>
+        <tr><th>천통의 힘</th><td>통증 계열 상급 (자창과 유사)</td><td>특정 콘텐츠 1회 보상</td></tr>
       </tbody>
     </table>
   </div>
+
+  <p>광석은 동일 효과는 중첩할 수 없으나 서로 다른 효과는 각자의 조건에 따라 <em>가산 또는 조건부</em>로 중첩된다. 실전 권장 조합:</p>
+
+  <div class="tbl-wrap">
+    <span class="tbl-caption">상황별 연성 광석 3종 조합 <span class="desc">arca 뉴비용 가이드 기반</span></span>
+    <table>
+      <thead><tr><th>적 상황</th><th>추천 3종 조합</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>적 2명+ · 어포컷 보유 · 약점 O</td><td><strong>포박(일반연성) + 배수 + 저격</strong></td><td>약점 저격 표준</td></tr>
+        <tr><td>약점 O · 1명은 어포컷 없음</td><td><strong>포박(일반연성) + 장미 + 저격</strong></td><td>단일 딜 최대화</td></tr>
+        <tr><td>약점 없음</td><td><strong>장미 + 배수 + 저격</strong></td><td>범용 — 가장 자주 쓰임</td></tr>
+        <tr><td>적이 강한 어포컷을 사용</td><td><strong>저격 + 배수 + 버티기</strong></td><td>안전망 우선</td></tr>
+        <tr><td>장기전 (MP 우려)</td><td><strong>장미 제외</strong> — 배수 + 저격 + 시련/포박</td><td>MP 소모 +50% 회피</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="sidenote">자창·포박·속성 글래는 일반 연성을 권장. P연성은 <em>셔틀</em> 전용 광석에 적용한다.</aside>
 
   <h3 id="sec-4-4">4. 셔틀 빌드 (P연성) 상세</h3>
-  <p><strong>[P] 글래스터</strong>는 파티 전체에 효과를 퍼뜨리는 특수 변환 상태. 메인 딜러가 아닌 <em>후열 캐릭</em>에게 P연성 글래 3~4개를 장착하면, 전열 딜러의 글래슬롯을 건드리지 않고도 파티 전체 딜을 증폭시킬 수 있다.</p>
+  <p><strong>P연성</strong>은 일반 연성을 거친 후 파티 전체에 효과를 퍼뜨리는 변환 상태. 딜을 안 하는 후열 캐릭(닦이·무기 외 무관 캐릭)에게 P연성 글래를 3~4개 장착하면 <em>전열 딜러의 슬롯을 건드리지 않고</em> 파티 전체 데미지를 증폭할 수 있다. 엔드게임(딜찍누 메타)에서 사실상 필수.</p>
 
-  <h4>셔틀 구성 예시</h4>
+  <h4>표준 셔틀 슬롯 구성 (무기별 유연)</h4>
   <div class="tbl-wrap">
+    <span class="tbl-caption">연성 셔틀 세팅 — 무기 슬롯별 권장 (arca 기반)</span>
     <table>
-      <thead><tr><th>셔틀 슬롯</th><th>글래스터</th><th>전달 효과</th></tr></thead>
+      <thead><tr><th>슬롯</th><th>권장 글래스터</th><th>전달 효과</th></tr></thead>
       <tbody>
-        <tr><th>셔틀 슬롯 1</th><td>P 통증의 힘</td><td>파티 전체 페인 시 ×1.3</td></tr>
-        <tr><th>셔틀 슬롯 2</th><td>P 시련</td><td>파티 전체 약점 +10%</td></tr>
-        <tr><th>셔틀 슬롯 3</th><td>P 저격</td><td>파티 전체 AF 외 +50%</td></tr>
-        <tr><th>셔틀 슬롯 4</th><td>P 광성 (천명 200 이후)</td><td>루나틱 2턴 연장</td></tr>
+        <tr><th>1</th><td><strong>HP 최대시 강화 [무기]</strong> + P 연성 (<code>최체 P</code>)</td><td>HP 풀일 때 해당 무기 데미지 증가를 파티 공유</td></tr>
+        <tr><th>2</th><td><strong>딜러에 맞는 상급 속성 글래 [무기]</strong> + P 연성 (<code>폭염P/격진P/수류P/열풍P</code>)</td><td>속성 공격력 +30% 파티 공유</td></tr>
+        <tr><th>3</th><td><strong>전능의 힘 글래</strong> + P 연성 (<code>동방P/애묘가P/안경P/가면P/IDAP</code> 등 페르소나별 다양)</td><td>해당 페르소나 공통 강화</td></tr>
+        <tr><th>4 (선택)</th><td><strong>무기의 기도</strong> + 일반 연성 (<code>진검의 기도 · 진 도의 기도 · 진 망치의 기도</code>)</td><td>특정 무기 데미지 + 턴 수 증가</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p>셔틀 후보로 적합한 캐릭은 전투 기여도가 낮거나 영입 순위가 높은 캐릭. 주로 <em>닦이와 겸직</em>하지 않고 <em>전담 셔틀</em>로 돌리는 게 정석이다.</p>
+  <div class="callout note">
+    <h4>NOTE — "전능의 힘" 시리즈 (P연성 유무 주의)</h4>
+    <p>동방·애묘가·안경·마수·서방·요리·엘프·마음의 괴도단·미글랜스·연옥계·왕족 등 페르소나별 <em>전능의 힘</em> 글래스터가 존재한다. 이 중 일부(예: 보스러쉬 추가분)는 <strong>P연성 불가</strong>로 개인 장착용만 가능하므로 반드시 확인할 것.</p>
+  </div>
+
+  <p>셔틀 후보는 전투 기여도가 낮거나 속도가 빠른 캐릭. 주로 <em>닦이와 겸직</em>하지 않고 <em>전담 셔틀</em>로 돌리는 게 정석이다.</p>
 
   <h3 id="sec-4-5">5. 신규 플레이어 체크리스트</h3>
   <div class="callout tip">
@@ -1480,21 +1515,37 @@ main figure figcaption::before {
   <p>증표(Verification Chant) 글래스터는 캐릭터 전용 강화 슬롯. 일반 글래슬롯이 아닌 별도 <em>특수 슬롯</em>에 장착된다 (제57장 클리어 시 개방, 1개 한정).</p>
 
   <div class="tbl-wrap">
+    <span class="tbl-caption">VC · 진 · 극한 증표 글래스터 단계</span>
     <table>
-      <thead><tr><th>단계</th><th>약칭</th><th>획득 · 강화</th></tr></thead>
+      <thead><tr><th>단계</th><th>약칭</th><th>획득 경로</th></tr></thead>
       <tbody>
-        <tr><th>VC 글래</th><td>증글래</td><td>고양이 신사 분서(奉納) — 4성 직업서 1 or 5성 직업서 10</td></tr>
-        <tr><th>진 VC</th><td>진글래</td><td>증글래 + 추가 재료 조합 — 캐릭 전용 효과 강화</td></tr>
-        <tr><th>극한 증표</th><td>극글래</td><td>상위 티어 · 최신 콘텐츠 드롭 · 조건부 최강</td></tr>
+        <tr><th>VC 글래</th><td>증글래</td><td>고양이 신사 분서(奉納) — <strong>5성 직업서 10개</strong> or <strong>이절(異節) 5개</strong> → VC 글래 1개</td></tr>
+        <tr><th>진 VC</th><td>진글래</td><td>활성화된 VC 글래 3개 + <strong>부적 88개 수집 퀘스트</strong> 완료 → 고양이 신사 유적 제단에서 교환</td></tr>
+        <tr><th>극한 증표</th><td>극글래</td><td>최신 콘텐츠 드롭 · 상위 티어 · 조건부 최강</td></tr>
       </tbody>
     </table>
   </div>
 
-  <p>분서(奉納)는 <em>고양이 신사 분향로</em>에서 수행한다. 무기·직업서를 불태워 특수 파편을 얻고, 특수 파편으로 해당 캐릭터의 VC/진 글래스터를 교환한다.</p>
+  <h3>VC 글래 활성화·각성 비용</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>소모 재료</th></tr></thead>
+      <tbody>
+        <tr><th>1차 결합 (활성화)</th><td>특수한 파편 × 20</td></tr>
+        <tr><th>2차 결합 (각성)</th><td>특수한 파편 × 40 + 특수한 결정 × 10</td></tr>
+        <tr><th>미결합 분리</th><td>특수한 파편 +20 환급</td></tr>
+        <tr><th>1차 결합 분리</th><td>특수한 파편 +40, 특수한 결정 +10 환급 <em>(효율 최적)</em></td></tr>
+        <tr><th>2차 결합 분리</th><td>특수한 파편 +20, 특수한 결정 +10 환급</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <aside class="sidenote">특수한 <em>결정</em>은 VC 글래 분리로만 얻을 수 있으므로, VC 글래 3개를 모은 후 1차 결합 상태에서 분리하는 루트가 재료 효율이 가장 높다.</aside>
+
+  <p><strong>진 글래 교환 절차</strong>: (1) VC 글래 3개를 <em>활성화 완료 상태</em>로 준비, (2) 고양이 신사 유적 지역에서 <strong>부적 88개 수집 퀘스트</strong>를 진행하면 제단이 해금, (3) 활성화된 VC 글래 3개 + 부적을 제단에 제출하여 진 글래로 교환.</p>
 
   <div class="callout note">
     <h4>NOTE — 어떤 캐릭부터 VC 파고?</h4>
-    <p>메인 딜러·지속 딜러로 돌려 쓰는 캐릭부터. VC 글래는 캐릭별로 고유하므로 <em>자주 편성하는 순서</em>대로 파는 게 정석. 신캐 나올 때마다 갈아타지 말 것.</p>
+    <p>메인 딜러·지속 딜러로 돌려 쓰는 캐릭부터. VC 글래는 캐릭별 고유이므로 <em>자주 편성하는 순서</em>대로 파는 게 정석. 신캐 나올 때마다 갈아타지 말 것. 뉴비는 <em>이절</em>보다 <em>5성 직업서</em>를 어나던에서 모으는 루트가 현실적.</p>
   </div>
 </section>
 
@@ -1563,13 +1614,16 @@ main figure figcaption::before {
   <h3 id="fn-title">Footnotes</h3>
   <ol>
     <li id="fn-1">
-      제48장 클리어 직후 튜토리얼에서 <em>글래스터</em> 개념이 처음 등장하며, 동시에 1번 슬롯이 자동 개방된다. 2번(50장)/3번(55장)은 진도 연동. <a href="#fn-1-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
+      제48장은 글래스터 <em>시스템 자체</em>가 해금되는 시점(1번 슬롯). 현대 가를레아 어나더 던전에 실제 입장하려면 <strong>제55장 클리어</strong>가 추가로 필요하다. 2번 슬롯 개방 시점은 자료에 따라 50장 또는 55장으로 나뉘는데, md 통합본은 50장으로 기록. <a href="#fn-1-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
     </li>
     <li id="fn-2">
-      1.3³ = 2.197은 페인 상태일 때의 <em>순수 곱셈</em> 배율. 여기에 연성 광석, 약점 배율, AF 배수가 별도 곱해지므로 실제 전투에선 더 크게 튄다. 상세 수치는 일본 커뮤니티 검증글 및 <em>altema.jp</em>의 시뮬레이션 결과를 참조. <a href="#fn-2-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
+      1.3³ = 2.197은 페인 상태일 때 통증의 힘 상급 3개 장착 시의 <em>순수 곱셈</em> 배율. arca #37383030 가이드에서 각 중급 글래 30% × 3개 곱연산 공식으로 설명. 여기에 연성 광석, 약점 배율, AF 배수가 별도 곱해진다. <a href="#fn-2-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
     </li>
     <li id="fn-3">
-      던전 맵 이미지는 <em>altema.jp/anaden/*</em> 의 공략 페이지에서 직접 링크되며, 저작권은 altema 및 각 게시자에게 있다. 본 가이드는 비영리 팬 콘텐츠로 fair use 범위에서 인용한다. <a href="#fn-3-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
+      던전 맵 이미지는 <em>altema.jp/anaden/*</em> 에서 직접 링크되며, 저작권은 altema 및 각 게시자에게 있다. 본 가이드는 비영리 팬 콘텐츠로 fair use 범위에서 인용한다. <a href="#fn-3-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
+    </li>
+    <li id="fn-4">
+      풀빌드 배율 "×13.34배 (+1234%)"는 한국 커뮤니티 md 통합본(글래스터_공략_상세개요.md)에 기록된 이론 최대치다. <em>통증×3 + 장미 + 배수 + 저격 + P연성 4종 + 존 광석</em> 조건이 동시에 성립해야 한다. 실전에서는 상태이상 명중, 어포컷 여부, 적 수에 따라 유동적. <a href="#fn-4-ref" class="fn-back" aria-label="본문으로 돌아가기">↩</a>
     </li>
   </ol>
 </section>
@@ -1579,7 +1633,7 @@ main figure figcaption::before {
 <!-- ================================================================ -->
 <footer class="page-foot" id="credits">
   <h2>출처 · 크레딧</h2>
-  <p>본 문서는 비공식 팬 가이드로, 아래 외부 자료를 참조·인용해 재구성했습니다. 이미지는 모두 원본 사이트에서 직접 링크되며, 소유권은 각 사이트/게시자에게 있습니다.</p>
+  <p><strong>이 가이드의 일차 기반은 본 워크스페이스의 한국어 md 통합본</strong>(<code>글래스터_공략_상세개요.md</code>, <code>한글판 공략내용.md</code>)입니다. 구조·수치·용어의 대부분은 해당 문서에서 가져왔고, 아래 외부 링크는 <em>이미지 소스</em>와 <em>교차 참조</em>용으로 사용되었습니다. 외부 원문을 풀(本文) 단위로 번역·인용한 것은 아니며, 특정 수치(예: 곱셈 배율 1.3³, 풀빌드 ×13.34)는 md 통합본과 arca 가이드에 동시 등장하는 값을 채택했습니다.</p>
 
   <h3>일본 공략 사이트</h3>
   <ul>
