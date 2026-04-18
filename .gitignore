@@ -1,0 +1,11 @@
+# Playwright
+.playwright-mcp/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*~

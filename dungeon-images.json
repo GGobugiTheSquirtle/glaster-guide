@@ -1,0 +1,126 @@
+{
+  "anothergalrea": {
+    "name": "현대가를레아",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2021/07/2021y07m27d_1326254565.jpg",
+    "maps": [],
+    "altema_page": "https://altema.jp/anaden/anothergalrea"
+  },
+  "anothergalreakodai": {
+    "name": "고대가를레아",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2019/08/2019y08m08d_2307268091.jpg",
+    "maps": [],
+    "altema_page": "https://altema.jp/anaden/anothergalreakodai"
+  },
+  "anothergalreamirai": {
+    "name": "미래가를레아",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2020/07/2020y07m06d_114304392.jpg",
+    "maps": [],
+    "altema_page": "https://altema.jp/anaden/anothergalreamirai"
+  },
+  "anotheromegapolis": {
+    "name": "오메가폴리스",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2022/11/2022y11m24d_1150504106.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/tukitetugareki.jpg",
+      "https://img.altema.jp/anaden/kakudai/seimeikoujougareki.jpg",
+      "https://img.altema.jp/anaden/kakudai/omegaporisusyounin.jpg",
+      "https://img.altema.jp/anaden/kakudai/anotheromegakasou.jpg",
+      "https://img.altema.jp/anaden/kakudai/anotheromegatyuusou.jpg",
+      "https://img.altema.jp/anaden/kakudai/tukitetunomori.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/anotheromegapolis"
+  },
+  "enntorana": {
+    "name": "엔트라나",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2022/11/2022y11m24d_1150504106.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/entoranachart1.jpg",
+      "https://img.altema.jp/anaden/kakudai/entoranachart2.jpg",
+      "https://img.altema.jp/anaden/kakudai/entoranachart3.jpg",
+      "https://img.altema.jp/anaden/kakudai/entoranachart4.jpg",
+      "https://img.altema.jp/anaden/kakudai/entoranachart5.jpg",
+      "https://img.altema.jp/anaden/kakudai/entoranachart6.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/enntorana"
+  },
+  "anotherjisumonde": {
+    "name": "지스몬데",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2024/07/2024y07m04d_1111286087.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/jismonde1.jpg",
+      "https://img.altema.jp/anaden/kakudai/jismonde2.jpg",
+      "https://img.altema.jp/anaden/kakudai/jismonde3.jpg",
+      "https://img.altema.jp/anaden/kakudai/jismonde4.jpg",
+      "https://img.altema.jp/anaden/kakudai/jismonde5.jpg",
+      "https://img.altema.jp/anaden/kakudai/jismonde6.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/anotherjisumonde"
+  },
+  "meigokuanother": {
+    "name": "명옥",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2025/03/2025y03m19d_1633098541.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/meigokuanother.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/meigokuanother"
+  },
+  "anotherark": {
+    "name": "방주(FF9)",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2025/12/2025y12m05d_1211441657.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/anotherark.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/anotherark"
+  },
+  "damaku": {
+    "name": "사간-다마쿠",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2017/11/2017y11m24d_171050878.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/damaku.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/damaku"
+  },
+  "anothermajujo": {
+    "name": "마수성",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2018/02/2018y02m28d_1227510044.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/majujou.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/anothermajujo"
+  },
+  "anothertoto": {
+    "name": "토토드림랜드",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2018/04/2018y04m28d_1456063724.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/totoanothermap.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/anothertoto"
+  },
+  "another-tokinotou-2673": {
+    "name": "시간의탑",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2017/10/2017y10m12d_1404224785.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/tokinotou.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/another-tokinotou-2673"
+  },
+  "siturakunomiyako": {
+    "name": "실락의도시",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2021/03/2021y03m26d_1136050313.jpg",
+    "maps": [],
+    "altema_page": "https://altema.jp/anaden/siturakunomiyako"
+  },
+  "meikyoukai": {
+    "name": "명협계",
+    "thumbnail": "https://img.altema.jp/anaden/uploads/2021/04/2021y04m13d_1240345075.jpg",
+    "maps": [
+      "https://img.altema.jp/anaden/kakudai/11.jpg",
+      "https://img.altema.jp/anaden/kakudai/10.jpg",
+      "https://img.altema.jp/anaden/kakudai/9.jpg",
+      "https://img.altema.jp/anaden/kakudai/8.jpg",
+      "https://img.altema.jp/anaden/kakudai/7.jpg",
+      "https://img.altema.jp/anaden/kakudai/6.jpg"
+    ],
+    "altema_page": "https://altema.jp/anaden/meikyoukai"
+  }
+}
